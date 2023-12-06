@@ -10,5 +10,6 @@ export const JWTCheck = (req, res, next) => {
   );
   console.log(user);
   req.user = user;
+  console.log(req.user);
   next();
 };
