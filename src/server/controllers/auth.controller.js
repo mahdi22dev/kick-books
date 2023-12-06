@@ -91,3 +91,7 @@ export const signin = async (req, res) => {
     res.status(401).json({ success: false, message });
   }
 };
+
+export const redirectIfSignIn = (req, res, err, next) => {
+  next();
+};

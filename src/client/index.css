@@ -9,3 +9,6 @@
 input {
   @apply min-h-[30px];
 }
+label {
+  @apply capitalize;
+}
