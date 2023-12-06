@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")// Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/d/migrate-shadow
+}
+
+generator client {
+  provider        = "prisma-client-js" /// You won't need this in Prisma 3.X or higher.
+}
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email         String   @unique
+  password      String
+  avatar        String?
+  emailVerified DateTime?
+  createdAt     DateTime @default(now())
+  image         String?
+}

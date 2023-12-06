@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply bg-[#242424] text-white;
+}
+
+input {
+  @apply min-h-[30px];
+}
