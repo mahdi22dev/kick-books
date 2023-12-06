@@ -94,4 +94,5 @@ export const signin = async (req, res) => {
 
 export const redirectIfSignIn = (req, res, err, next) => {
   next();
+  return res.redirect("/");
 };
