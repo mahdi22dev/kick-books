@@ -53,9 +53,9 @@ export default function SignIn() {
           <p className='text-red-500 mx-auto capitalize'>{message}</p>
         )}
         {error && <p className='text-red-500 mx-auto capitalize'>{error}</p>}
-        <h3 className='capitalize mx-auto'>
+        <h3 className=' mx-auto'>
           {" "}
-          Sign In to see your birthdays riminder
+          Sign In To Manage Your <span>eBooks</span>
         </h3>
         <label>email</label>
         <input

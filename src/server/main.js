@@ -3,32 +3,23 @@ import express from "express";
 import ViteExpress from "vite-express";
 import userRoute from "./routes/user.route.js";
 import bodyParser from "body-parser";
-import { JWTCheck } from "../lib/JwtToken.js";
 import authRoute from "./routes/auth.route.js";
+import {
+  JWTCheck,
+  JWTTokenAuthAPI,
+  JWTTokenAuthPages,
+} from "./lib/authMiddleware/JwtToken.js";
 
 const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
+// api middlware
 app.use("/user", JWTCheck, userRoute);
-app.use("/auth", authRoute);
-
-app.use("/sign-up", (req, res, next) => {
-  const token = req?.cookies?.access_token;
-  if (token) {
-    return res.redirect("/user/dashboard");
-  } else {
-    next();
-  }
-});
-app.use("/sign-in", (req, res, next) => {
-  const token = req?.cookies?.access_token;
-  if (token) {
-    return res.redirect("/user/dashboard");
-  } else {
-    next();
-  }
-});
-
+app.use("/auth", JWTTokenAuthAPI, authRoute);
+// auth pages middlware
+app.use("/sign-up", JWTTokenAuthPages);
+app.use("/sign-in", JWTTokenAuthPages);
+app.get("/", JWTTokenAuthPages);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

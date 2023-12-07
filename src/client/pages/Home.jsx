@@ -5,9 +5,9 @@ export default function Home() {
   return (
     <div className='flex justify-center items-center w-full min-h-screen flex-col'>
       <div className='bg-black p-5 h-28 flex justify-center items-center flex-col gap-5'>
-        <h3>Sign in to track and create birthday riminders</h3>
+        <h3>Sign in To Manage Your eBooks</h3>
         <button className='p-1 bg-red-100 text-black'>
-          <Link to={"/sign-in"}>sign in</Link>
+          <a href={"/sign-in"}>sign in</a>
         </button>
       </div>
     </div>
