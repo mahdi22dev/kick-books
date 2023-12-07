@@ -65,7 +65,6 @@ export const signin = async (req, res) => {
 
   if (userExist) {
     const passwordsMatch = await bcrypt.compare(password, userExist?.password);
-
     const TokenData = {
       id: userExist.id,
       name: userExist.name,
@@ -81,7 +80,7 @@ export const signin = async (req, res) => {
       );
       message = "User Signed In Succesfuly";
       res.cookie("access_token", token, { httpOnly: true });
-      res.status(201).json({ success: true, message });
+      res.status(201).json({ success: true, message, user: TokenData });
     } else {
       message = "Password incorrect";
       res.status(401).json({ success: false, message });

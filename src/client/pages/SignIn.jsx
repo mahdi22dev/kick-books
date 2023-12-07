@@ -23,7 +23,10 @@ export default function SignIn() {
       });
       const response = await data.json();
       setMessage(response?.message);
+      console.log(response);
       if (response?.success) {
+        const id = response?.user?.id;
+        localStorage.setItem("userId", id);
         setTimeout(() => {
           setMessage("redirecting...");
         }, 500);
@@ -32,6 +35,7 @@ export default function SignIn() {
         }, 1500);
       }
     } catch (error) {
+      console.log(error.message);
       setError("there was an error please try again later");
     }
   };

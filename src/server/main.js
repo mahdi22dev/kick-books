@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 // api middlware
 app.use("/user", JWTCheck, userRoute);
-app.use("/auth", JWTTokenAuthAPI, authRoute);
+app.use("/auth", authRoute);
 // auth pages middlware
 app.use("/sign-up", JWTTokenAuthPages);
 app.use("/sign-in", JWTTokenAuthPages);
