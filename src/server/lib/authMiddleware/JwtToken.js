@@ -34,12 +34,3 @@ export const JWTTokenAuthPages = (req, res, next) => {
     next();
   }
 };
-
-export const JWTTokenAuthAPI = (req, res, next) => {
-  const token = req?.cookies?.access_token;
-  if (token) {
-    return;
-  } else {
-    next();
-  }
-};

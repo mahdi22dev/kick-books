@@ -4,11 +4,7 @@ import ViteExpress from "vite-express";
 import userRoute from "./routes/user.route.js";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route.js";
-import {
-  JWTCheck,
-  JWTTokenAuthAPI,
-  JWTTokenAuthPages,
-} from "./lib/authMiddleware/JwtToken.js";
+import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
 
 const app = express();
 app.use(cookieParser());
