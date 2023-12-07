@@ -26,14 +26,12 @@ export const JWTCheck = (req, res, next) => {
 };
 
 export const JWTTokenAuthPages = (req, res, next) => {
-  (req, res, next) => {
-    const token = req?.cookies?.access_token;
-    if (token) {
-      return res.redirect("/user/dashboard");
-    } else {
-      next();
-    }
-  };
+  const token = req?.cookies?.access_token;
+  if (token) {
+    return res.redirect("/user/dashboard");
+  } else {
+    next();
+  }
 };
 
 export const JWTTokenAuthAPI = (req, res, next) => {
