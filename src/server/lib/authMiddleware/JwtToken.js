@@ -11,7 +11,7 @@ export const JWTCheck = (req, res, next) => {
       process.env.MY_SECRET || "efwfwfwt5t65464yregweffwr45wfwefwef"
     );
     req.user = user;
-
+    console.log(user);
     next();
   } catch (error) {
     AuthErrorHandler(req, res, error);

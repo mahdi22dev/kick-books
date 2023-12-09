@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+{
+  {
+  }
+}
 export default function SignIn() {
   let navigate = useNavigate();
   const [values, setValues] = useState({
@@ -9,6 +13,8 @@ export default function SignIn() {
   });
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  let man = ",amseff";
+  console.log(man);
 
   const HandleSumbit = async (e) => {
     setMessage("");

@@ -2,6 +2,7 @@ export const EditUsername = (req, res) => {
   try {
     const token = req?.cookies?.access_token;
     const { newUsername } = req?.body;
+    console.log(newUsername);
     if (!token || !req.user) {
       return res.status(401).json({
         success: false,
