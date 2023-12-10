@@ -21,6 +21,7 @@
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.20.1",
+    "react-spinners": "^0.13.8",
     "vite-express": "*",
     "yup": "^1.3.2"
   },

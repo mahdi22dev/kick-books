@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  @apply bg-[#242424] text-white;
+  @apply bg-background text-text font-semibold;
 }
 
 input {
-  @apply min-h-[30px];
+  @apply min-h-[50px] rounded-full w-full pl-10 placeholder:capitalize placeholder:font-thin;
 }
 label {
   @apply capitalize;
