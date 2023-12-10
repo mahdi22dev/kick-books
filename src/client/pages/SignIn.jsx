@@ -68,6 +68,7 @@ export default function SignIn() {
           <Controller
             name={"email"}
             control={control}
+            defaultValue={"test@gmail.com"}
             render={({ field }) => (
               <input {...field} type='email' placeholder='email' />
             )}
@@ -83,6 +84,7 @@ export default function SignIn() {
           <Controller
             name={"password"}
             control={control}
+            defaultValue='mahdi2019'
             render={({ field }) => (
               <input {...field} type={"password"} placeholder='password' />
             )}

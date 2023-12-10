@@ -1,5 +1,5 @@
 import React from "react";
-
+import { GrPowerShutdown } from "react-icons/gr";
 const handleLogOut = async () => {
   try {
     const data = await fetch("/auth/logout");
@@ -13,7 +13,12 @@ const handleLogOut = async () => {
 };
 
 const LogOut = () => {
-  return <button onClick={handleLogOut}>LogOut</button>;
+  return (
+    <GrPowerShutdown
+      onClick={handleLogOut}
+      className='cursor-pointer text-[25px] text-primary transition-all duration-200 hover:text-primary/30 '
+    />
+  );
 };
 
 export default LogOut;
