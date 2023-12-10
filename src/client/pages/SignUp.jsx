@@ -2,11 +2,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SingUpschema } from "../../lib/vidationSchema";
 
 export default function SignUp() {
-  const navigate = Navigate();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
