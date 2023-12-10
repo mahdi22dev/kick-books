@@ -55,7 +55,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full min-h-screen relative'>
+    <main className='flex flex-col justify-center items-center w-full min-h-screen relative'>
       <BackToHome />
       <TextHeader text={"LOGIN TO YOUR ACCOUNT"} />
       <form
@@ -127,6 +127,6 @@ export default function SignIn() {
           )}
         </div>
       </form>
-    </div>
+    </main>
   );
 }

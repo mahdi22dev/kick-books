@@ -20,7 +20,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main>
+    <main className=''>
       <h2>Dashboard</h2>
       <button
         className='text-white bg-red-200 p-2 hover:bg-opacity-80'

@@ -53,7 +53,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full min-h-screen'>
+    <main className='flex flex-col justify-center items-center w-full min-h-screen'>
       <BackToHome />
       <TextHeader text={"REGISTER NEW ACCOUNT"} />
 
@@ -140,6 +140,6 @@ export default function SignUp() {
           )}
         </div>
       </form>
-    </div>
+    </main>
   );
 }
