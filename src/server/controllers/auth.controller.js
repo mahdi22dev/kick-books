@@ -92,11 +92,16 @@ export const signin = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  const token = req.cookies.token; // Assuming you use cookies for JWT
-
-  if (!token) {
-    return res.status(401).json({ success: false, message: "Unauthorized" });
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json({ success: true, message: "Logout Succesfuly" });
+  } catch (error) {
+    console.log(error.message);
   }
-
-  return res.status(201).json({ success: true, message: "Logout Succesfuly" });
 };

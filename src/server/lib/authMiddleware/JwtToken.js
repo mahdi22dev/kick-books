@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { AuthErrorHandler } from "../ErrorHandler.js";
+
 export const JWTCheck = (req, res, next) => {
   try {
     const token = req?.cookies?.access_token;
@@ -14,6 +15,7 @@ export const JWTCheck = (req, res, next) => {
     console.log(user);
     next();
   } catch (error) {
+    res.clearCookie("access_token");
     AuthErrorHandler(req, res, error);
   }
 };
