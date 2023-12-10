@@ -27,13 +27,16 @@ export default function SignIn() {
     setError("");
     setLoading(true);
     try {
-      const data = await fetch("http://localhost:3000/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputValue),
-      });
+      const data = await fetch(
+        `http://localhost:3000/${import.meta.env.VITE_SIGNIN_API}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(inputValue),
+        }
+      );
       const response = await data.json();
       setMessage(response?.message);
       if (response?.success) {
