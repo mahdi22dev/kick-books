@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import LogOut from "../components/auth/LogOut";
 
 export default function Dashboard() {
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });
+
   const HandleSumbit = async (e) => {
     e.preventDefault();
     try {
@@ -20,7 +22,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main className=''>
+    <main className='relative'>
       <h2>Dashboard</h2>
       <button
         className='text-white bg-red-200 p-2 hover:bg-opacity-80'
@@ -28,6 +30,7 @@ export default function Dashboard() {
       >
         change username
       </button>
+      <LogOut />
     </main>
   );
 }

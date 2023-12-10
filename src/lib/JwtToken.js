@@ -14,13 +14,13 @@ export const JWTCheck = (req, res, next) => {
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       console.log("Token has expired");
-      return res.redirect("/login");
+      return res.redirect("/sign-in");
     } else if (error.name === "JsonWebTokenError") {
       console.log("Invalid token");
-      return res.redirect("/");
+      return res.redirect("/sign-in");
     } else {
       console.error(error);
-      return res.redirect("/");
+      return res.redirect("/sign-in");
     }
   }
 };

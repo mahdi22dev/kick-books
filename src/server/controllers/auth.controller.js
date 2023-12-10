@@ -75,7 +75,7 @@ export const signin = async (req, res) => {
         TokenData,
         process.env.My_SECRET || "efwfwfwt5t65464yregweffwr45wfwefwef",
         {
-          expiresIn: "1000h",
+          expiresIn: "30d",
         }
       );
       message = "User Signed In Succesfuly";
@@ -89,4 +89,14 @@ export const signin = async (req, res) => {
     message = "User doesn't exist";
     res.status(401).json({ success: false, message });
   }
+};
+
+export const logout = async (req, res) => {
+  const token = req.cookies.token; // Assuming you use cookies for JWT
+
+  if (!token) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  return res.status(201).json({ success: true, message: "Logout Succesfuly" });
 };
