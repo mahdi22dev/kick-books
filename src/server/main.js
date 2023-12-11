@@ -7,6 +7,7 @@ import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
 
 const app = express();
+ViteExpress.config({ mode: "production" });
 app.use(cookieParser());
 app.use(bodyParser.json());
 // api middlware

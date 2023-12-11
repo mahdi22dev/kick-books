@@ -11,6 +11,7 @@ import { SyncLoader } from "react-spinners";
 import { CiUser } from "react-icons/ci";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
+import MessagesUI from "../components/auth/MessagesUI";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -124,21 +125,8 @@ export default function SignUp() {
         </div>
 
         {/* display errors and messages */}
-        <div className='min-h-[50px]'>
-          {message && (
-            <div className='flex justify-start items-center gap-2'>
-              <IoCheckmarkSharp className='text-green-500' />
-              <p className='text-green-500 capitalize'>{message}</p>
-            </div>
-          )}
 
-          {error && (
-            <div className='flex justify-start items-center gap-2'>
-              <MdErrorOutline className='text-red-500' />
-              <p className='text-red-500 capitalize'>{error}</p>
-            </div>
-          )}
-        </div>
+        <MessagesUI error={error} message={message} />
       </form>
     </main>
   );

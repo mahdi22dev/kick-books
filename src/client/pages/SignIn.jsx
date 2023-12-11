@@ -10,6 +10,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { SyncLoader } from "react-spinners";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
+import MessagesUI from "../components/auth/MessagesUI";
 
 export default function SignIn() {
   let navigate = useNavigate();
@@ -69,6 +70,7 @@ export default function SignIn() {
             name={"email"}
             control={control}
             defaultValue={"test@gmail.com"}
+            disabled={loading}
             render={({ field }) => (
               <input {...field} type='email' placeholder='email' />
             )}
@@ -85,6 +87,7 @@ export default function SignIn() {
             name={"password"}
             control={control}
             defaultValue='mahdi2019'
+            disabled={loading}
             render={({ field }) => (
               <input {...field} type={"password"} placeholder='password' />
             )}
@@ -97,7 +100,8 @@ export default function SignIn() {
 
         <button
           type='submit'
-          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30'
+          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-red-500'
+          disabled={loading}
         >
           {loading ? <SyncLoader color='#fff' size={8} /> : " Sign In"}
         </button>
@@ -113,21 +117,7 @@ export default function SignIn() {
         </div>
 
         {/* display errors and messages */}
-        <div className='min-h-[50px]'>
-          {message && (
-            <div className='flex justify-start items-center gap-2'>
-              <IoCheckmarkSharp className='text-green-500' />
-              <p className='text-green-500 capitalize'>{message}</p>
-            </div>
-          )}
-
-          {error && (
-            <div className='flex justify-start items-center gap-2'>
-              <MdErrorOutline className='text-red-500' />
-              <p className='text-red-500 capitalize'>{error}</p>
-            </div>
-          )}
-        </div>
+        <MessagesUI error={error} message={message} />
       </form>
     </main>
   );
