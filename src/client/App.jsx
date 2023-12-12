@@ -4,6 +4,8 @@ import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Settings from "./pages/Settings.jsx";
+import { Provider } from "react-redux";
+import store from "./lib/redux/store.js";
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,7 +29,11 @@ function App() {
       element: <Settings />,
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

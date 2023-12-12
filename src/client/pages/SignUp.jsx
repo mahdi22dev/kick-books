@@ -3,7 +3,6 @@ import React from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { SingUpschema } from "../../lib/vidationSchema";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SyncLoader } from "react-spinners";
@@ -11,6 +10,7 @@ import { CiUser } from "react-icons/ci";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
 import MessagesUI from "../components/auth/MessagesUI";
+import { SingUpschema } from "../lib/vidationSchema";
 
 export default function SignUp() {
   const navigate = useNavigate();

@@ -24,7 +24,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main className='relative'>
+    <main className='relative w-full min-h-screen'>
       <UserUI />
       {/* side navbar */}
       <SideNav />

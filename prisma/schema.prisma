@@ -18,4 +18,12 @@ model User {
   emailVerified DateTime?
   createdAt     DateTime @default(now())
   image         String?
+  files         Files[]
+}
+model Files {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  fileName      String
+  categorie     String 
+  user          User     @relation(fields: [UserId], references: [id])   
+  UserId        String   @db.ObjectId
 }
