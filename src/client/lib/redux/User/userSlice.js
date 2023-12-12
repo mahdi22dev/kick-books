@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
-  name: "cart",
-  initialState: {},
-  reducers: {},
+  name: "user",
+  initialState: { isSideBarOpen: true },
+  reducers: {
+    toggleSidebar: (state) => {
+      state.isSideBarOpen = !state.isSideBarOpen;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const {} = userSlice.actions;
+export const { toggleSidebar } = userSlice.actions;
 
 export default userSlice.reducer;

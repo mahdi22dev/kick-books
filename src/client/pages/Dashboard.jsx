@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import LogOut from "../components/auth/LogOut";
+import React, { useState } from "react";
 import UserUI from "../components/dashboard/UserUI";
 import SideNav from "../components/dashboard/SideNav";
-
+import { TfiArrowCircleRight } from "react-icons/tfi";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar } from "../lib/redux/User/userSlice";
+import Files from "../components/dashboard/Files";
 export default function Dashboard() {
+  const dispatch = useDispatch();
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });
 
   const HandleSumbit = async (e) => {
@@ -22,12 +25,20 @@ export default function Dashboard() {
       console.log(error.message);
     }
   };
-
+  const handleToggle = () => {
+    dispatch(toggleSidebar());
+  };
   return (
     <main className='relative w-full min-h-screen'>
       <UserUI />
-      {/* side navbar */}
-      <SideNav />
+      <TfiArrowCircleRight
+        className='text-[30px] text-primary absolute top-[72px] left-3 cursor-pointer duration-300 hover:text-opacity-50'
+        onClick={handleToggle}
+      />
+      <div className='flex'>
+        <SideNav />
+        <Files />
+      </div>
     </main>
   );
 }
