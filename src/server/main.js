@@ -5,7 +5,6 @@ import userRoute from "./routes/user.route.js";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
-
 const app = express();
 // ViteExpress.config({ mode: "production" });
 app.use(cookieParser());
@@ -22,7 +21,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
-
-ViteExpress.listen(app, 3000, () =>
+const PORT = process.env.PORT || 3000;
+ViteExpress.listen(app, PORT, () =>
   console.log("Server is listening on port 3000...")
 );

@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Settings from "./pages/Settings.jsx";
 import { Provider } from "react-redux";
 import store from "./lib/redux/store.js";
+import PDFViewr from "./components/dashboard/PDFViewr.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -31,6 +32,7 @@ function App() {
   ]);
   return (
     <Provider store={store}>
+      <PDFViewr />
       <RouterProvider router={router} />
     </Provider>
   );

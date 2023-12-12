@@ -35,7 +35,7 @@ export default function Dashboard() {
         className='text-[30px] text-primary absolute top-[72px] left-3 cursor-pointer duration-300 hover:text-opacity-50'
         onClick={handleToggle}
       />
-      <div className='flex'>
+      <div className='flex h-full w-full'>
         <SideNav />
         <Files />
       </div>
