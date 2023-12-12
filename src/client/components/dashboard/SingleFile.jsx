@@ -11,7 +11,7 @@ function SingleFile() {
   }
   return (
     <div>
-      <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={pdf}>
         <Page pageNumber={pageNumber} />
       </Document>
       <p>{pageNumber}</p>
