@@ -23,6 +23,7 @@ model User {
 model Files {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   fileName      String
+  content       Bytes
   categorie     String 
   user          User     @relation(fields: [UserId], references: [id])   
   UserId        String   @db.ObjectId

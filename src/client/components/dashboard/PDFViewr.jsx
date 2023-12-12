@@ -11,14 +11,15 @@ function PDFViewr() {
   };
   return (
     viewPDF && (
-      <div className='absolute top-0 right-0 left-0 bottom-0 min-h-screen bg-black/50 z-[100] px-10 py-7'>
+      <div className='absolute top-0 right-0 left-0 -bottom-16 min-h-screen bg-black/50 z-[100] px-10 py-7'>
         <IoMdClose
           onClick={handleViewrToggle}
           className='text-[45px] text-primary hover:text-primary/60 transition-all duration-300 cursor-pointer'
         />
-        <div className='w-[80%] mx-auto overflow-auto max-h-[90vh] min-h-[90vh] bg-primary/5'>
-          <SingleFile />
-        </div>
+        {/* <div className='bg-primary h-6 w-[80%] fixed top-11 left-24 mx-auto'>
+          bar
+        </div> */}
+        <SingleFile />
       </div>
     )
   );

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { isSideBarOpen: true, viewPDF: false },
+  initialState: { isSideBarOpen: true, viewPDF: false, viewUpload: false },
   reducers: {
     toggleSidebar: (state) => {
       state.isSideBarOpen = !state.isSideBarOpen;
@@ -10,10 +10,13 @@ export const userSlice = createSlice({
     toggleviewPDF: (state) => {
       state.viewPDF = !state.viewPDF;
     },
+    toggleviewUpload: (state) => {
+      state.viewUpload = !state.viewUpload;
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { toggleSidebar, toggleviewPDF } = userSlice.actions;
+export const { toggleSidebar, toggleviewPDF, toggleviewUpload } =
+  userSlice.actions;
 
 export default userSlice.reducer;
