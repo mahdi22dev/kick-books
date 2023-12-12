@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LogOut from "../components/auth/LogOut";
 import UserUI from "../components/dashboard/UserUI";
+import SideNav from "../components/dashboard/SideNav";
 
 export default function Dashboard() {
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });
@@ -25,6 +26,8 @@ export default function Dashboard() {
   return (
     <main className='relative'>
       <UserUI />
+      {/* side navbar */}
+      <SideNav />
     </main>
   );
 }

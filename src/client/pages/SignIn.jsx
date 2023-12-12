@@ -45,13 +45,15 @@ export default function SignIn() {
         }, 500);
         setTimeout(() => {
           return navigate("/user/dashboard");
-        }, 1500);
+        }, 1000);
       }
     } catch (error) {
       console.log(error.message);
       setError("there was an error please try again later");
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }
   };
 
@@ -100,7 +102,7 @@ export default function SignIn() {
 
         <button
           type='submit'
-          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-red-500'
+          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-black/5'
           disabled={loading}
         >
           {loading ? <SyncLoader color='#fff' size={8} /> : " Sign In"}

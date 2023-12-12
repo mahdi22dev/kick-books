@@ -4,8 +4,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { SingUpschema } from "../../lib/vidationSchema";
-import { MdErrorOutline, MdOutlineAlternateEmail } from "react-icons/md";
-import { IoCheckmarkSharp } from "react-icons/io5";
+import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SyncLoader } from "react-spinners";
 import { CiUser } from "react-icons/ci";
@@ -29,7 +28,7 @@ export default function SignUp() {
     setError("");
     setLoading(true);
     try {
-      const data = await fetch("http://localhost:3000/auth/signup", {
+      const data = await fetch("/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +48,9 @@ export default function SignUp() {
     } catch (error) {
       setError("there was an error please try again later");
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }
   };
 
@@ -68,6 +69,7 @@ export default function SignUp() {
           <Controller
             name={"username"}
             control={control}
+            disabled={loading}
             render={({ field }) => (
               <input {...field} type='text' placeholder='username' />
             )}
@@ -81,6 +83,7 @@ export default function SignUp() {
           <MdOutlineAlternateEmail className='absolute top-[18px] left-4' />
           <Controller
             name={"email"}
+            disabled={loading}
             control={control}
             render={({ field }) => (
               <input {...field} type='email' placeholder='email' />
@@ -96,6 +99,7 @@ export default function SignUp() {
           <RiLockPasswordLine className='absolute top-[18px] left-4' />
           <Controller
             name={"password"}
+            disabled={loading}
             control={control}
             render={({ field }) => (
               <input {...field} type={"password"} placeholder='password' />
@@ -109,7 +113,8 @@ export default function SignUp() {
 
         <button
           type='submit'
-          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30'
+          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-black/5'
+          disabled={loading}
         >
           {loading ? <SyncLoader color='#fff' size={8} /> : " Sign Up"}
         </button>
