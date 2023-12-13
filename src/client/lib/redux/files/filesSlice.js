@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const filesSlice = createSlice({
   name: "files",
   initialState: {
-    files: "",
+    files: [],
   },
   reducers: {
     updateFiles: (state, actions) => {

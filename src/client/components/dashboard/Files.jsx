@@ -7,9 +7,9 @@ import { updateFiles } from "../../lib/redux/files/filesSlice";
 function Files() {
   const { files } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const [filesData, setFilesData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
   const handleViewrToggle = () => {
     dispatch(toggleviewPDF());
   };
@@ -19,10 +19,9 @@ function Files() {
       setLoading(true);
       const data = await fetch("/user/get-files");
       const response = await data.json();
-
       if (response) {
-        setFilesData(response?.files);
-        console.log(response);
+        dispatch(updateFiles(response?.files));
+        console.log("redux state");
         console.log(files);
       }
     } catch (error) {
@@ -43,7 +42,7 @@ function Files() {
         </div>
       ) : (
         <div className='grid grid-cols-3 gap-5'>
-          {filesData?.map((file) => {
+          {files?.map((file) => {
             return (
               <div
                 key={file.id}
