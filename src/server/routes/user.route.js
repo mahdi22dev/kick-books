@@ -27,5 +27,5 @@ userRoute.get("/settings", (req, res, next) => {
 userRoute.post("/edit", EditUsername);
 userRoute.post("/upload", upload.single("file"), userUpload);
 userRoute.get("/get-files", getFiles);
-userRoute.get("/get-file", getSingleFile);
+userRoute.get("/get-file/:id", getSingleFile);
 export default userRoute;

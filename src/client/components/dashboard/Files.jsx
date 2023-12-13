@@ -11,7 +11,6 @@ function Files() {
   const dispatch = useDispatch();
 
   const handleViewrToggle = (id) => {
-    console.log(id);
     dispatch(updateFileId(id));
     dispatch(toggleviewPDF());
   };

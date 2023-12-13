@@ -18,21 +18,19 @@ function SingleFileViewr() {
   const [pageNumber, setPageNumber] = useState(1);
   const canvasRef = useRef();
 
-  const params = new URLSearchParams({
-    id: fileId,
-  });
-
   const fetchFileContent = async () => {
+    const url = "http://localhost:3000/user/get-file/" + fileId;
+    console.log(url);
     try {
       setLoading(true);
-      const data = await fetch("/user/get-file?" + params);
+      const data = await fetch(url);
       const response = await data.json();
-      if (response) {
+      if (response.success) {
         console.log(response);
         setFileContent(response?.file?.content);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     } finally {
       setLoading(false);
       console.log(fileContent);
@@ -41,7 +39,7 @@ function SingleFileViewr() {
 
   useEffect(() => {
     console.log("useEffect from pdf viewr");
-    // fetchFileContent();
+    fetchFileContent();
   }, []);
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -55,7 +53,7 @@ function SingleFileViewr() {
   };
 
   return loading ? (
-    <div className='w-full min-h-[80vh] flex justify-center items-center'>
+    <div className='w-full min-h-[80vh] flex justify-center items-center bg-inherit'>
       <SyncLoader color='#48ccbc' size={16} />
     </div>
   ) : (

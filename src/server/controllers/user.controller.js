@@ -90,11 +90,13 @@ export const getSingleFile = async (req, res) => {
       },
       where: {
         id: fileId,
+        UserId: UserId,
       },
     });
+    console.log(file);
     if (!file) {
       return res
-        .status(200)
+        .status(404)
         .json({ success: false, message: "file not found" });
     }
     res.status(200).json({ success: true, file });
