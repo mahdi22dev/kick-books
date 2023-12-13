@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const filesSlice = createSlice({
-  name: "cart",
+  name: "files",
   initialState: {
-    files: [{ id: 1, filesName: "text.txt" }],
+    files: "",
   },
   reducers: {
+    updateFiles: (state, actions) => {
+      state.files = actions.payload;
+    },
     CategoriesFilter: (state, actions) => {},
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {} = filesSlice.actions;
+export const { updateFiles } = filesSlice.actions;
 
 export default filesSlice.reducer;

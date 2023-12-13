@@ -2,7 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { isSideBarOpen: true, viewPDF: false, viewUpload: false },
+  initialState: {
+    isSideBarOpen: true,
+    viewPDF: false,
+    viewUpload: false,
+    refetch: false,
+  },
   reducers: {
     toggleSidebar: (state) => {
       state.isSideBarOpen = !state.isSideBarOpen;
@@ -13,10 +18,13 @@ export const userSlice = createSlice({
     toggleviewUpload: (state) => {
       state.viewUpload = !state.viewUpload;
     },
+    refetchToggle: (state) => {
+      state.refetch = !state.refetch;
+    },
   },
 });
 
-export const { toggleSidebar, toggleviewPDF, toggleviewUpload } =
+export const { toggleSidebar, toggleviewPDF, toggleviewUpload, refetchToggle } =
   userSlice.actions;
 
 export default userSlice.reducer;

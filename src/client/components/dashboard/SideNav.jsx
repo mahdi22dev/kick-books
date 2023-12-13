@@ -4,14 +4,11 @@ import { TfiArrowCircleLeft } from "react-icons/tfi";
 import { toggleSidebar } from "../../lib/redux/User/userSlice";
 function SideNav() {
   const dispatch = useDispatch();
-  const { files } = useSelector((state) => state.files);
+
   const { isSideBarOpen } = useSelector((state) => state.user);
-  useEffect(() => {
-    console.log(files);
-  }, []);
+  useEffect(() => {}, []);
   const handleToggle = () => {
     dispatch(toggleSidebar());
-    console.log(isSideBarOpen);
   };
   return (
     <div
