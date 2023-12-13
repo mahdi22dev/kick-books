@@ -77,3 +77,29 @@ export const getFiles = async (req, res) => {
     res.status(401).json({ success: false, message: error.message });
   }
 };
+export const getSingleFile = async (req, res) => {
+  const UserId = req.user.id;
+  const fileId = req.params.id;
+  console.log(fileId);
+  try {
+    const file = await prisma.files.findUnique({
+      select: {
+        content: true,
+        fileName: true,
+        id: true,
+      },
+      where: {
+        id: fileId,
+      },
+    });
+    if (!file) {
+      return res
+        .status(200)
+        .json({ success: false, message: "file not found" });
+    }
+    res.status(200).json({ success: true, file });
+  } catch (error) {
+    console.log(error.message);
+    res.status(404).json({ success: false, message: error.message });
+  }
+};

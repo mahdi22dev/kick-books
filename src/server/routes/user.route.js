@@ -2,6 +2,7 @@ import express from "express";
 import {
   EditUsername,
   getFiles,
+  getSingleFile,
   userUpload,
 } from "../controllers/user.controller.js";
 import multer from "multer";
@@ -26,4 +27,5 @@ userRoute.get("/settings", (req, res, next) => {
 userRoute.post("/edit", EditUsername);
 userRoute.post("/upload", upload.single("file"), userUpload);
 userRoute.get("/get-files", getFiles);
+userRoute.get("/get-file", getSingleFile);
 export default userRoute;

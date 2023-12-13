@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { SyncLoader } from "react-spinners";
-import { updateFiles } from "../../lib/redux/files/filesSlice";
+import { updateFileId, updateFiles } from "../../lib/redux/files/filesSlice";
 
 function Files() {
   const { files } = useSelector((state) => state.files);
@@ -10,7 +10,9 @@ function Files() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
-  const handleViewrToggle = () => {
+  const handleViewrToggle = (id) => {
+    console.log(id);
+    dispatch(updateFileId(id));
     dispatch(toggleviewPDF());
   };
 
@@ -21,8 +23,6 @@ function Files() {
       const response = await data.json();
       if (response) {
         dispatch(updateFiles(response?.files));
-        console.log("redux state");
-        console.log(files);
       }
     } catch (error) {
       console.log(error);
@@ -38,7 +38,7 @@ function Files() {
     <div className='p-5 w-full h-full'>
       {loading ? (
         <div className='w-full min-h-[80vh] flex justify-center items-center'>
-          <SyncLoader color='#48ccbc' size={20} />
+          <SyncLoader color='#48ccbc' size={16} />
         </div>
       ) : (
         <div className='grid grid-cols-3 gap-5'>
@@ -47,7 +47,9 @@ function Files() {
               <div
                 key={file.id}
                 className='bg-primary/60'
-                onClick={handleViewrToggle}
+                onClick={() => {
+                  handleViewrToggle(file.id);
+                }}
               >
                 <p>title: {file.fileName}</p>
               </div>
