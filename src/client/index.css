@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +7,9 @@
   @apply bg-background text-text font-semibold;
 }
 
+body {
+  font-family: "Noto Sans Arabic", sans-serif;
+}
 input {
   @apply min-h-[50px] rounded-full w-full pl-10 placeholder:capitalize placeholder:font-thin;
 }

@@ -6,7 +6,11 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
 const app = express();
-// ViteExpress.config({ mode: "production" });
+
+app.use((req, res, next) => {
+  res.header("Content-Type", "text/html; charset=utf-8");
+  next();
+});
 app.use(cookieParser());
 app.use(bodyParser.json());
 // api middlware

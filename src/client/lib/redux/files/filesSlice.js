@@ -4,7 +4,8 @@ export const filesSlice = createSlice({
   name: "files",
   initialState: {
     files: [],
-    fileId: "6578dfd3135360380eca579e",
+    fileId: "",
+    filePath: "",
   },
   reducers: {
     updateFiles: (state, actions) => {
@@ -13,11 +14,13 @@ export const filesSlice = createSlice({
     updateFileId: (state, actions) => {
       state.fileId = actions.payload;
     },
+    updateFilePath: (state, actions) => {
+      state.filePath = actions.payload;
+    },
     CategoriesFilter: (state, actions) => {},
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { updateFiles, updateFileId } = filesSlice.actions;
+export const { updateFiles, updateFileId, updateFilePath } = filesSlice.actions;
 
 export default filesSlice.reducer;

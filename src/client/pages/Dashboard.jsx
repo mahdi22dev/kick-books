@@ -4,7 +4,7 @@ import SideNav from "../components/dashboard/SideNav";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from "../lib/redux/User/userSlice";
-import Files from "../components/dashboard/Files";
+import Files from "../components/Files/Files";
 export default function Dashboard() {
   const dispatch = useDispatch();
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });

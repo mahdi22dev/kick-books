@@ -41,7 +41,7 @@ export const signup = async (req, res) => {
       res
         .status(201)
         .cookie("access_token", token, { httpOnly: true })
-        .json({ success: true, message })
+        .json({ success: true, message, user: TokenData })
         .redirect("/");
 
       if (!Createuser) {

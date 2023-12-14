@@ -37,8 +37,8 @@ export default function SignIn() {
       const response = await data.json();
       setMessage(response?.message);
       if (response?.success) {
-        const id = response?.user?.id;
-        localStorage.setItem("userId", id);
+        const userName = response?.user?.name;
+        localStorage.setItem("userName", userName);
         setTimeout(() => {
           setMessage("redirecting...");
         }, 500);

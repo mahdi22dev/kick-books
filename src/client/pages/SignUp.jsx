@@ -37,6 +37,9 @@ export default function SignUp() {
       });
       const response = await data.json();
       if (response?.success) {
+        const userName = response?.user?.name;
+        localStorage.setItem("userName", userName);
+
         setTimeout(() => {
           setMessage("redirecting...");
         }, 500);

@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import {
+  DeleteFileAfterDW,
   EditUsername,
   getFiles,
   getSingleFile,
@@ -30,4 +31,5 @@ userRoute.post("/edit", EditUsername);
 userRoute.post("/upload", upload.single("file"), userUpload);
 userRoute.get("/get-files", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
+userRoute.get("/d/:id", DeleteFileAfterDW);
 export default userRoute;

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { SyncLoader } from "react-spinners";
 import { updateFileId, updateFiles } from "../../lib/redux/files/filesSlice";
+import SingleFile from "./SingleFile";
 
 function Files() {
   const { files } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleViewrToggle = (id) => {
@@ -16,19 +17,19 @@ function Files() {
   };
 
   const getFiles = async () => {
-    try {
-      setLoading(true);
-      const data = await fetch("/user/get-files");
-      const response = await data.json();
-      if (response) {
-        dispatch(updateFiles(response?.files));
-        console.log(files);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   const data = await fetch("/user/get-files");
+    //   const response = await data.json();
+    //   if (response) {
+    //     dispatch(updateFiles(response?.files));
+    //     console.log(files);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   useEffect(() => {
@@ -42,7 +43,8 @@ function Files() {
         </div>
       ) : (
         <div className='grid grid-cols-3 gap-5'>
-          {files?.map((file) => {
+          {/* {files?.map((file) => {
+            const decodedFileName = decodeURIComponent(file.fileName);
             return (
               <div
                 key={file.id}
@@ -51,10 +53,11 @@ function Files() {
                   handleViewrToggle(file.id);
                 }}
               >
-                <p>title: {file.fileName}</p>
+                <p>title: {decodedFileName}</p>
               </div>
             );
-          })}
+          })} */}
+          <SingleFile />
         </div>
       )}
     </div>

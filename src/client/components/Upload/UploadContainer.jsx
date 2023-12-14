@@ -13,11 +13,18 @@ function UploadContainer() {
   const [loading, setLoading] = useState(false);
   const { viewUpload } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const handleViewrToggle = () => {
+    setFile(null);
     dispatch(toggleviewUpload());
   };
 
   const handleSumbit = async (e) => {
+    console.log(file);
+    const encodedFileName = encodeURIComponent(file.name);
+    console.log(encodedFileName);
+    const decodedFileName = decodeURIComponent(file.name);
+    console.log(decodedFileName);
     e.preventDefault();
     setLoading(true);
     try {
@@ -31,6 +38,7 @@ function UploadContainer() {
 
       const response = await data.json();
       if (response.success) {
+        setFile(null);
         ToastMessage(response?.message);
         handleViewrToggle();
         dispatch(refetchToggle());
@@ -47,7 +55,7 @@ function UploadContainer() {
       <div className='flex justify-center items-center absolute top-0 right-0 left-0 -bottom-16 min-h-screen bg-black/50 z-[100] px-10 py-7 '>
         <form
           onSubmit={handleSumbit}
-          className='relative flex justify-center items-center flex-col gap-10 bg-primary  min-h-[300px] min-w-[300px] p-4'
+          className='relative flex justify-center items-center flex-col gap-10 bg-primary min-h-[300px] min-w-[80%] md:min-w-[300px] p-4'
         >
           <IoMdClose
             onClick={handleViewrToggle}
@@ -66,7 +74,9 @@ function UploadContainer() {
               />
             </label>
           </div>
-
+          {file && (
+            <div className='max-w-xs whitespace-normal'>{file?.name}</div>
+          )}
           <button
             type='submit'
             className='text-white text-md p-2 bg-secondary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-secondary/30 disabled:bg-black/5'

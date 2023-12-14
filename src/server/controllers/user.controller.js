@@ -29,10 +29,11 @@ export const userUpload = async (req, res) => {
     console.log(file);
     const user = req?.user;
     const contentPDF = fs.readFileSync(file.path);
+    const encodedFileName = encodeURIComponent(file.originalname);
 
     await prisma.files.create({
       data: {
-        fileName: file.originalname,
+        fileName: encodedFileName,
         content: contentPDF,
         categorie: "Politics", // Set the category as needed
         UserId: user?.id, // Replace with the actual user ID
@@ -82,7 +83,6 @@ export const getFiles = async (req, res) => {
 export const getSingleFile = async (req, res) => {
   const UserId = req.user.id;
   const fileId = req.params.id;
-  console.log(fileId);
   try {
     const file = await prisma.files.findUnique({
       select: {
@@ -98,28 +98,56 @@ export const getSingleFile = async (req, res) => {
 
     const base64 = file.content;
     const uniqueSuffix = Date.now();
-    const FilePath = "./files/tmp/" + uniqueSuffix + "_" + file.fileName;
+    const decodedFileName = decodeURIComponent(file.fileName);
+
+    console.log(decodedFileName);
+    const FilePath = "./files/tmp/" + uniqueSuffix + "_" + decodedFileName;
     const bufferObject = Buffer.from(base64, "base64");
 
     fs.writeFile(FilePath, bufferObject, (err) => {
       if (err) throw err;
-      console.log("PDF file saved");
     });
-
-    // send back the file
 
     if (!file) {
       return res
         .status(404)
         .json({ success: false, message: "file not found" });
     }
-
+    const filePath = uniqueSuffix + "_" + decodedFileName;
     const FileLink =
-      "http://localhost:3000/files/tmp/" + uniqueSuffix + "_" + file.fileName;
+      "http://localhost:3000/files/tmp/" + uniqueSuffix + "_" + decodedFileName;
 
-    res.status(200).json({ success: true, url: FileLink });
+    res.status(200).json({
+      success: true,
+      url: FileLink,
+      fileName: decodedFileName,
+      filePath,
+    });
   } catch (error) {
     console.log(error.message);
     res.status(404).json({ success: false, message: error.message });
+  }
+};
+
+export const DeleteFileAfterDW = async (req, res) => {
+  try {
+    const filePath = req.params.id;
+    console.log("filePath", filePath);
+    const fullPath = "./files/tmp/" + filePath;
+    fs.unlink(fullPath, (err) => {
+      if (err) {
+        res.status(404).json({
+          success: false,
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+        });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+    });
   }
 };

@@ -3,14 +3,16 @@ import { Worker, Viewer } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout/lib";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SyncLoader } from "react-spinners";
+import { ToastError } from "../../lib/toast";
+import { updateFilePath } from "../../lib/redux/files/filesSlice";
 
 function SingleFileViewr() {
   const workerUrl = `https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
   const plugin = defaultLayoutPlugin();
-
   const { fileId } = useSelector((state) => state.files);
+  const dispath = useDispatch();
   const [fileContent, setFileContent] = useState("");
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,8 +26,9 @@ function SingleFileViewr() {
       const data = await fetch(url);
       const response = await data.json();
       if (response.success) {
-        setFileName("fileName.pdf");
+        setFileName(response.fileName);
         setFileContent(response.url);
+        dispath(updateFilePath(response.filePath));
       } else {
       }
     } catch (error) {
@@ -38,7 +41,7 @@ function SingleFileViewr() {
   useEffect(() => {
     const lastPage = localStorage.getItem(fileName + "_" + fileId);
     if (lastPage) {
-      setPageNumber(parseInt(lastPage.pageNumber, 10));
+      setPageNumber(lastPage.pageNumber);
     }
     fetchFileContent();
   }, []);
@@ -51,6 +54,7 @@ function SingleFileViewr() {
     const jsonString = JSON.stringify(data);
     localStorage.setItem(fileName + "_" + fileId, jsonString);
   };
+
   return loading ? (
     <div className='w-full min-h-[80vh] flex justify-center items-center bg-inherit'>
       <SyncLoader color='#48ccbc' size={16} />
@@ -59,7 +63,10 @@ function SingleFileViewr() {
     <Worker workerUrl={workerUrl}>
       <Viewer
         fileUrl={fileContent}
-        renderError={(error) => console.log(error)}
+        renderError={(error) => {
+          console.log(error);
+          ToastError(error.message);
+        }}
         plugins={[plugin]}
         initialPage={pageNumber}
         onPageChange={onNavigate}

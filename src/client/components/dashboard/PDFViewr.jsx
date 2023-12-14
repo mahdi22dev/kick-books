@@ -5,30 +5,25 @@ import { IoMdClose } from "react-icons/io";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 function PDFViewr({}) {
   const { viewPDF } = useSelector((state) => state.user);
-  const { fileId } = useSelector((state) => state.user);
+  const { filePath } = useSelector((state) => state.files);
 
   const dispatch = useDispatch();
 
   const fetchFileContent = async () => {
-    const url = "http://localhost:3000/user/get-file/" + fileId;
-    try {
-      setLoading(true);
-      const data = await fetch(url);
-      const response = await data.json();
-      if (response.success) {
-        setFileName("fileName.pdf");
-        setFileContent(response.url);
-      } else {
-      }
-    } catch (error) {
-      setError("there was an error please try again later");
-    } finally {
-      setLoading(false);
-    }
+    console.log(filePath);
+    const url = "http://localhost:3000/user/d/" + filePath;
+    const data = await fetch(url);
+    const response = await data.json();
+    console.log(response);
   };
 
   const handleViewrToggle = () => {
     dispatch(toggleviewPDF());
+    console.log("viewpdf", viewPDF);
+    if (viewPDF) {
+      console.log("delete file");
+      fetchFileContent();
+    }
   };
 
   return (
