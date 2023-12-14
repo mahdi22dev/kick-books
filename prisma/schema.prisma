@@ -25,6 +25,7 @@ model Files {
   fileName      String
   content       Bytes
   categorie     String 
+  cover         String?
   user          User     @relation(fields: [UserId], references: [id])   
   UserId        String   @db.ObjectId
 }
