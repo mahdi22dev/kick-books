@@ -22,6 +22,7 @@ function Files() {
       const response = await data.json();
       if (response) {
         dispatch(updateFiles(response?.files));
+        console.log(files);
       }
     } catch (error) {
       console.log(error);

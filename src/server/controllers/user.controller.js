@@ -28,23 +28,25 @@ export const userUpload = async (req, res) => {
     const file = req?.file;
     console.log(file);
     const user = req?.user;
-    const pdfContent = fs.readFileSync(file?.path);
+    const contentPDF = fs.readFileSync(file.path);
+
     await prisma.files.create({
       data: {
         fileName: file.originalname,
-        content: pdfContent,
+        content: contentPDF,
         categorie: "Politics", // Set the category as needed
         UserId: user?.id, // Replace with the actual user ID
       },
     });
+
     // Delete the file from the server
-    fs.unlink(file.path, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("File deleted");
-      }
-    });
+    // fs.unlink(file.path, (err) => {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     console.log("File deleted");
+    //   }
+    // });
 
     res
       .status(201)
@@ -93,7 +95,17 @@ export const getSingleFile = async (req, res) => {
         UserId: UserId,
       },
     });
-    console.log(file);
+
+    const base64 = file.content;
+    const uniqueSuffix = Date.now();
+    const FilePath =
+      "./files/tmp/" + uniqueSuffix + "_" + file.fileName + ".pdf";
+    // console.log(FilePath);
+    const bufferObject = Buffer.from(base64, "base64");
+    fs.writeFile(FilePath, bufferObject, (err) => {
+      if (err) throw err;
+      console.log("PDF file saved");
+    });
     if (!file) {
       return res
         .status(404)

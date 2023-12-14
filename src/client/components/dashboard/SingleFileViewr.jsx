@@ -13,27 +13,32 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 function SingleFileViewr() {
   const { fileId } = useSelector((state) => state.files);
   const [fileContent, setFileContent] = useState("");
+  const [pdfString, setPdfString] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [numPages, setNumPages] = useState();
   const [pageNumber, setPageNumber] = useState(1);
   const canvasRef = useRef();
 
   const fetchFileContent = async () => {
     const url = "http://localhost:3000/user/get-file/" + fileId;
-    console.log(url);
     try {
       setLoading(true);
       const data = await fetch(url);
       const response = await data.json();
       if (response.success) {
         console.log(response);
+        const pdfBytes = response?.file?.content;
+        const blob = new Blob([pdfBytes]);
+        console.log(blob);
         setFileContent(response?.file?.content);
+      } else {
+        setError(response?.message);
       }
     } catch (error) {
-      console.log(error.message);
+      setError("there was an error please try again later");
     } finally {
       setLoading(false);
-      console.log(fileContent);
     }
   };
 
@@ -58,6 +63,7 @@ function SingleFileViewr() {
     </div>
   ) : (
     <>
+      {error && <p className='text-center text-primary'>{error}</p>}
       <Document
         file={pdf}
         error={HandleError}
@@ -84,7 +90,7 @@ function SingleFileViewr() {
           />
         ))}
       </Document>
-      <div className='fixed bottom-16 left-48 flex border-primary border-4 bg-black/50 justify-center items-center gap-2 p-1 text-text'>
+      {/* <div className='fixed bottom-16 left-48 flex border-primary border-4 bg-black/50 justify-center items-center gap-2 p-1 text-text'>
         <input
           type='text'
           placeholder={pageNumber}
@@ -93,7 +99,7 @@ function SingleFileViewr() {
           className='rounded-full w-12 h-12 min-h-0 p-3 text-white bg-black/50 placeholder:text-white'
         />
         <label>{numPages}</label>
-      </div>
+      </div> */}
     </>
   );
 }

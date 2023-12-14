@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import {
   EditUsername,
   getFiles,
@@ -13,8 +14,9 @@ const storage = multer.diskStorage({
     cb(null, "./files");
   },
   filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
     const uniqueSuffix = Date.now();
-    cb(null, file.fieldname + "-" + uniqueSuffix);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
   },
 });
 
