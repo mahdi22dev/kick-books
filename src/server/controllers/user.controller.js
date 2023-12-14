@@ -40,13 +40,13 @@ export const userUpload = async (req, res) => {
     });
 
     // Delete the file from the server
-    // fs.unlink(file.path, (err) => {
-    //   if (err) {
-    //     console.error(err);
-    //   } else {
-    //     console.log("File deleted");
-    //   }
-    // });
+    fs.unlink(file.path, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("File deleted");
+      }
+    });
 
     res
       .status(201)
@@ -98,20 +98,28 @@ export const getSingleFile = async (req, res) => {
 
     const base64 = file.content;
     const uniqueSuffix = Date.now();
-    const FilePath =
-      "./files/tmp/" + uniqueSuffix + "_" + file.fileName + ".pdf";
-    // console.log(FilePath);
+    const FilePath = "./files/tmp/" + uniqueSuffix + "_" + file.fileName;
     const bufferObject = Buffer.from(base64, "base64");
+
     fs.writeFile(FilePath, bufferObject, (err) => {
       if (err) throw err;
       console.log("PDF file saved");
     });
+
+    // send back the file
+
     if (!file) {
       return res
         .status(404)
         .json({ success: false, message: "file not found" });
     }
-    res.status(200).json({ success: true, file });
+
+    const FileLink =
+      "http://localhost:3000/files/tmp/" +
+      uniqueSuffix +
+      "_" +
+      file.fileName +
+      res.status(200).json({ success: true, url: FileLink });
   } catch (error) {
     console.log(error.message);
     res.status(404).json({ success: false, message: error.message });

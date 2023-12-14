@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import pdf from "./2.pdf";
+import pdf from "./test.pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useSelector } from "react-redux";
 import { SyncLoader } from "react-spinners";
+import { ToastError } from "../../lib/toast";
+import { Await } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
@@ -13,27 +15,22 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 function SingleFileViewr() {
   const { fileId } = useSelector((state) => state.files);
   const [fileContent, setFileContent] = useState("");
-  const [pdfString, setPdfString] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [numPages, setNumPages] = useState();
   const [pageNumber, setPageNumber] = useState(1);
   const canvasRef = useRef();
-
   const fetchFileContent = async () => {
     const url = "http://localhost:3000/user/get-file/" + fileId;
     try {
       setLoading(true);
       const data = await fetch(url);
       const response = await data.json();
-      if (response.success) {
-        console.log(response);
-        const pdfBytes = response?.file?.content;
-        const blob = new Blob([pdfBytes]);
-        console.log(blob);
-        setFileContent(response?.file?.content);
+      if (response.success && response.url) {
+        console.log(response.url);
+        setFileContent(response.url);
       } else {
-        setError(response?.message);
+        ToastError("failed to Load file");
       }
     } catch (error) {
       setError("there was an error please try again later");
@@ -43,12 +40,12 @@ function SingleFileViewr() {
   };
 
   useEffect(() => {
-    console.log("useEffect from pdf viewr");
     fetchFileContent();
   }, []);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
+    console.log(numPages);
   }
   function HandleError(error) {
     console.log(error);
@@ -65,8 +62,9 @@ function SingleFileViewr() {
     <>
       {error && <p className='text-center text-primary'>{error}</p>}
       <Document
-        file={pdf}
+        file={fileContent}
         error={HandleError}
+        onLoadError={HandleError}
         onLoadSuccess={onDocumentLoadSuccess}
         className={
           "w-[80%] mx-auto overflow-auto max-h-[90vh] min-h-[90vh] relative"
