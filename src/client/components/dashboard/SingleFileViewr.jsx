@@ -26,7 +26,7 @@ function SingleFileViewr() {
       setLoading(true);
       const data = await fetch(url);
       const response = await data.json();
-      if (response.success && response.url) {
+      if (response.success) {
         console.log(response.url);
         setFileContent(response.url);
       } else {

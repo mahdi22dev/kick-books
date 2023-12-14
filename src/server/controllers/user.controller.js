@@ -115,11 +115,9 @@ export const getSingleFile = async (req, res) => {
     }
 
     const FileLink =
-      "http://localhost:3000/files/tmp/" +
-      uniqueSuffix +
-      "_" +
-      file.fileName +
-      res.status(200).json({ success: true, url: FileLink });
+      "http://localhost:3000/files/tmp/" + uniqueSuffix + "_" + file.fileName;
+
+    res.status(200).json({ success: true, url: FileLink });
   } catch (error) {
     console.log(error.message);
     res.status(404).json({ success: false, message: error.message });
