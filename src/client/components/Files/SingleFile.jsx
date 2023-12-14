@@ -1,12 +1,11 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { ScaleVariants } from "../../lib/variants";
+import { EditVariants, ScaleVariants } from "../../lib/variants";
 import { CloseAnimation, StartAnimation } from "../../lib/redux/User/userSlice";
 import { FaBookReader } from "react-icons/fa";
 function SingleFile() {
   const MotionFaBookReader = motion(FaBookReader);
-
   const { ScaleAnimation } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -22,13 +21,9 @@ function SingleFile() {
 
   return (
     <div
-      className='relative bg-red-500 w-96 h-96 cursor-pointer'
+      className='relative bg-red-500 w-96 h-96 cursor-pointer overflow-hidden'
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
-      onClick={() => {
-        dispacth(ScaleAnimaionToggleToggle());
-        console.log(ScaleAnimation);
-      }}
     >
       <div className=''></div>
       <AnimatePresence>
@@ -52,6 +47,24 @@ function SingleFile() {
             exit={"exit"}
             key={ScaleAnimation}
           />
+        </motion.div>
+      </AnimatePresence>
+      <AnimatePresence>
+        {" "}
+        <motion.div
+          layout
+          variants={EditVariants}
+          initial={"initial"}
+          animate={"animate"}
+          exit={"exit"}
+          key={ScaleAnimation}
+          className={`${
+            ScaleAnimation
+              ? "absolute flex justify-center items-center"
+              : "hidden"
+          }  top-4 right-2 overflow-hidden overflow-x-hidden bg-secondary z-[100] `}
+        >
+          edit
         </motion.div>
       </AnimatePresence>
     </div>
