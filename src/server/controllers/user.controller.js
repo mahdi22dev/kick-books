@@ -35,8 +35,8 @@ export const userUpload = async (req, res) => {
       data: {
         fileName: encodedFileName,
         content: contentPDF,
-        categorie: "Politics", // Set the category as needed
-        UserId: user?.id, // Replace with the actual user ID
+        categorie: "Politics",
+        UserId: user?.id,
       },
     });
 

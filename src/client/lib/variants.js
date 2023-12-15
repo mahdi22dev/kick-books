@@ -8,7 +8,7 @@ export const ScaleVariants = {
       damping: 25,
       velocity: 10,
       duration: 0.2,
-      opacity: { duration: 0.6 },
+      opacity: { duration: 0.9 },
     },
   },
   initial: {

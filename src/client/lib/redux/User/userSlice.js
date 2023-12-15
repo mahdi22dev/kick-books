@@ -7,7 +7,6 @@ export const userSlice = createSlice({
     viewPDF: false,
     viewUpload: false,
     refetch: false,
-    ScaleAnimation: false,
   },
   reducers: {
     toggleSidebar: (state) => {
@@ -22,22 +21,10 @@ export const userSlice = createSlice({
     refetchToggle: (state) => {
       state.refetch = !state.refetch;
     },
-    StartAnimation: (state) => {
-      state.ScaleAnimation = true;
-    },
-    CloseAnimation: (state) => {
-      state.ScaleAnimation = false;
-    },
   },
 });
 
-export const {
-  toggleSidebar,
-  toggleviewPDF,
-  toggleviewUpload,
-  refetchToggle,
-  StartAnimation,
-  CloseAnimation,
-} = userSlice.actions;
+export const { toggleSidebar, toggleviewPDF, toggleviewUpload, refetchToggle } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,31 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { EditVariants, ScaleVariants } from "../../lib/variants";
-import { CloseAnimation, StartAnimation } from "../../lib/redux/User/userSlice";
+import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { FaBookReader } from "react-icons/fa";
-function SingleFile() {
+import { FiEdit } from "react-icons/fi";
+import { updateFileId } from "../../lib/redux/files/filesSlice";
+import img from "../../assets/img.jpg";
+function SingleFile({ file }) {
   const MotionFaBookReader = motion(FaBookReader);
-  const { ScaleAnimation } = useSelector((state) => state.user);
+  const [scaleAnimation, setScaleAnimation] = useState(false);
   const dispatch = useDispatch();
 
+  const handleViewrToggle = (id) => {
+    dispatch(updateFileId(id));
+    dispatch(toggleviewPDF());
+    setScaleAnimation(false);
+  };
+
   const handleHover = () => {
-    dispatch(StartAnimation());
-    console.log(ScaleAnimation);
+    setScaleAnimation(true);
   };
 
   const handleLeave = () => {
-    dispatch(CloseAnimation());
-    console.log(ScaleAnimation);
+    setScaleAnimation(false);
   };
 
   return (
     <div
-      className='relative bg-red-500 w-96 h-96 cursor-pointer overflow-hidden'
+      className='relative bg-primary max-h-96 max-w-sm cursor-pointer overflow-hidden p-5 '
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >
-      <div className=''></div>
+      {/* <div className='w-full p-3 py-2 bg-green-500 text-center '>
+        <p>{decodedFileName}</p>
+      </div> */}
+      <img src={img} alt='img' className='w-full h-full' />
       <AnimatePresence>
         <motion.div
           layout
@@ -33,38 +43,41 @@ function SingleFile() {
           initial={"initial"}
           animate={"animate"}
           exit={"exit"}
-          key={ScaleAnimation}
+          key={scaleAnimation}
           className={`${
-            ScaleAnimation
+            scaleAnimation
               ? "absolute flex justify-center items-center"
               : "hidden"
-          }  top-0 bottom-0 right-0 left-0 overflow-hidden overflow-x-hidden w bg-primary z-[100] `}
+          }  top-0 bottom-0 right-0 left-0 overflow-hidden overflow-x-hidden w bg-black/30 z-[100] `}
+          onClick={() => handleViewrToggle(file.id)}
         >
           <MotionFaBookReader
-            className='text-5xl'
+            className='[font-size:_clamp(15px,4vw,40px)] text-primary gridIcon'
             initial={"initial"}
             animate={"animate"}
             exit={"exit"}
-            key={ScaleAnimation}
+            key={scaleAnimation}
           />
         </motion.div>
       </AnimatePresence>
       <AnimatePresence>
-        {" "}
         <motion.div
           layout
           variants={EditVariants}
           initial={"initial"}
           animate={"animate"}
           exit={"exit"}
-          key={ScaleAnimation}
+          key={scaleAnimation}
           className={`${
-            ScaleAnimation
+            scaleAnimation
               ? "absolute flex justify-center items-center"
               : "hidden"
-          }  top-4 right-2 overflow-hidden overflow-x-hidden bg-secondary z-[100] `}
+          }  top-4 right-2 overflow-hidden overflow-x-hidden z-[100] `}
         >
-          edit
+          <FiEdit
+            className='[font-size:_clamp(15px,4vw,40px)] text-primary gridIcon'
+            onClick={() => console.log("edit clicked")}
+          />
         </motion.div>
       </AnimatePresence>
     </div>

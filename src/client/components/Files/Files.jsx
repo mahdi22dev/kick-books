@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { SyncLoader } from "react-spinners";
-import { updateFileId, updateFiles } from "../../lib/redux/files/filesSlice";
+import { updateFiles } from "../../lib/redux/files/filesSlice";
 import SingleFile from "./SingleFile";
 
 function Files() {
@@ -11,25 +10,20 @@ function Files() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const handleViewrToggle = (id) => {
-    dispatch(updateFileId(id));
-    dispatch(toggleviewPDF());
-  };
-
   const getFiles = async () => {
-    // try {
-    //   setLoading(true);
-    //   const data = await fetch("/user/get-files");
-    //   const response = await data.json();
-    //   if (response) {
-    //     dispatch(updateFiles(response?.files));
-    //     console.log(files);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      setLoading(true);
+      const data = await fetch("/user/get-files");
+      const response = await data.json();
+      if (response) {
+        dispatch(updateFiles(response?.files));
+        console.log(files);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -42,22 +36,10 @@ function Files() {
           <SyncLoader color='#48ccbc' size={16} />
         </div>
       ) : (
-        <div className='grid grid-cols-3 gap-5'>
-          {/* {files?.map((file) => {
-            const decodedFileName = decodeURIComponent(file.fileName);
-            return (
-              <div
-                key={file.id}
-                className='bg-primary/60'
-                onClick={() => {
-                  handleViewrToggle(file.id);
-                }}
-              >
-                <p>title: {decodedFileName}</p>
-              </div>
-            );
-          })} */}
-          <SingleFile />
+        <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto'>
+          {files?.map((file) => {
+            return <SingleFile key={file.id} file={file} />;
+          })}
         </div>
       )}
     </div>

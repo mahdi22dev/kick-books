@@ -17,33 +17,12 @@ label {
   @apply capitalize;
 }
 
-.file_label {
-  display: block;
-  width: 60vw;
-  max-width: 300px;
-  margin: 0 auto;
-  background-color: slateblue;
-  border-radius: 2px;
-  font-size: 1em;
-  line-height: 2.5em;
-  text-align: center;
+.gridIcon:focus {
+  @apply scale-110 transition-all duration-200;
 }
-
-.file_label:hover {
-  background-color: cornflowerblue;
+.gridIcon:active {
+  @apply scale-110 transition-all duration-200;
 }
-
-.file_label:active {
-  background-color: mediumaquamarine;
-}
-
-.file_input {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+.gridIcon:hover {
+  @apply scale-110 transition-all duration-200;
 }

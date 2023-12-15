@@ -31,12 +31,11 @@ export default function Dashboard() {
   return (
     <main className='relative w-full min-h-screen'>
       <UserUI />
-      <TfiArrowCircleRight
+      {/* <TfiArrowCircleRight
         className='text-[30px] text-primary absolute top-[72px] left-3 cursor-pointer duration-300 hover:text-opacity-50'
         onClick={handleToggle}
-      />
+      /> */}
       <div className='flex h-full w-full'>
-        <SideNav />
         <Files />
       </div>
     </main>
