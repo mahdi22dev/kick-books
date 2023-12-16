@@ -1,16 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
 import { SyncLoader } from "react-spinners";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
 import MessagesUI from "../components/auth/MessagesUI";
 import { SignInschema } from "../lib/vidationSchema";
 import TextInput from "../components/Form/TextInput";
+import FormButton from "../components/Form/FormButton";
+import FormRedirect from "../components/Form/FormRedirect";
 
 export default function SignIn() {
   let navigate = useNavigate();
@@ -81,24 +81,8 @@ export default function SignIn() {
           defaultValue={"mahdi2019"}
           control={control}
         />
-        <button
-          type='submit'
-          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-black/5'
-          disabled={loading}
-        >
-          {loading ? <SyncLoader color='#fff' size={8} /> : " Sign In"}
-        </button>
-
-        <div className='font-normal mt-2 '>
-          You don't have an account? sign up from{" "}
-          <Link
-            className='text-secondary hover:text-secondary/60 transition-all duration-300'
-            to={`/sign-up`}
-          >
-            here
-          </Link>
-        </div>
-
+        <FormButton loading={loading} text={"Sign In"} />
+        <FormRedirect text={"sign up"} path={"/sign-up"} />
         {/* display errors and messages */}
         <MessagesUI error={error} message={message} />
       </form>

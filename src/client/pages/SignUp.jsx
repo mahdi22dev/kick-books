@@ -1,16 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { SyncLoader } from "react-spinners";
-import { CiUser } from "react-icons/ci";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
 import MessagesUI from "../components/auth/MessagesUI";
 import { SingUpschema } from "../lib/vidationSchema";
+import TextInput from "../components/Form/TextInput";
+import FormButton from "../components/Form/FormButton";
+import FormRedirect from "../components/Form/FormRedirect";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -67,91 +66,36 @@ export default function SignUp() {
         onSubmit={handleSubmit(onSumbit)}
       >
         {/* username */}
-        <div className='relative w-full'>
-          <CiUser className='absolute top-[18px] left-4' />
-          <Controller
-            name={"username"}
-            control={control}
-            disabled={loading}
-            render={({ field }) => (
-              <input {...field} type='text' placeholder='username' />
-            )}
-          />
-          <p className='text-red-500 mt-1 font-light text-sm min-h-[20px] w-full'>
-            {errors.username && errors.username.message}
-          </p>
-        </div>
+        <TextInput
+          errors={errors}
+          Inputype={"username"}
+          loading={loading}
+          control={control}
+        />
         {/* email */}
-        <div className='relative w-full'>
-          <MdOutlineAlternateEmail className='absolute top-[18px] left-4' />
-          <Controller
-            name={"email"}
-            disabled={loading}
-            control={control}
-            render={({ field }) => (
-              <input {...field} type='email' placeholder='email' />
-            )}
-          />
-          <p className='text-red-500 mt-1 font-light text-sm min-h-[20px] w-full'>
-            {errors.email && errors.email.message}
-          </p>
-        </div>
-
+        <TextInput
+          errors={errors}
+          Inputype={"email"}
+          loading={loading}
+          control={control}
+        />
         {/* password */}
-        <div className='relative w-full '>
-          <RiLockPasswordLine className='absolute top-[18px] left-4' />
-          <Controller
-            name={"password"}
-            disabled={loading}
-            control={control}
-            render={({ field }) => (
-              <input {...field} type={"password"} placeholder='password' />
-            )}
-          />
-        </div>
-        <p className='text-red-500 mt-1 font-light text-sm min-h-[20px]'>
-          {errors.password && errors.password.message}
-        </p>
+        <TextInput
+          errors={errors}
+          Inputype={"password"}
+          loading={loading}
+          control={control}
+        />
         {/* Confirm password */}
-        <div className='relative w-full '>
-          <RiLockPasswordLine className='absolute top-[18px] left-4' />
-          <Controller
-            name={"confirmPassword"}
-            disabled={loading}
-            control={control}
-            render={({ field }) => (
-              <input
-                {...field}
-                type={"password"}
-                placeholder='confirm Password'
-              />
-            )}
-          />
-        </div>
-        <p className='text-red-500 mt-1 font-light text-sm min-h-[20px]'>
-          {errors.confirmPassword && errors.confirmPassword.message}
-        </p>
-
-        <button
-          type='submit'
-          className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-black/5'
-          disabled={loading}
-        >
-          {loading ? <SyncLoader color='#fff' size={8} /> : " Sign Up"}
-        </button>
-
-        <div className='font-normal mt-2'>
-          You Have Account Login from{" "}
-          <Link
-            className='text-secondary hover:text-secondary/60 transition-all duration-300'
-            to={`/sign-in`}
-          >
-            here
-          </Link>
-        </div>
-
+        <TextInput
+          errors={errors}
+          Inputype={"confirmPassword"}
+          loading={loading}
+          control={control}
+        />
+        <FormButton loading={loading} text={"Sign Up"} />
+        <FormRedirect text={"sign in"} path={"/sign-in"} />
         {/* display errors and messages */}
-
         <MessagesUI error={error} message={message} />
       </form>
     </main>

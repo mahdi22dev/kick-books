@@ -1,5 +1,6 @@
 import React from "react";
 import { Controller } from "react-hook-form";
+import { CiUser } from "react-icons/ci";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 function TextInput({ control, loading, errors, Inputype, defaultValue }) {
@@ -8,8 +9,12 @@ function TextInput({ control, loading, errors, Inputype, defaultValue }) {
       return <MdOutlineAlternateEmail className='absolute top-[18px] left-4' />;
     } else if (Inputype === "password") {
       return <RiLockPasswordLine className='absolute top-[18px] left-4' />;
+    } else if (Inputype === "username") {
+      return <CiUser className='absolute top-[18px] left-4' />;
+    } else if (Inputype === "confirmPassword") {
+      return <CiUser className='absolute top-[18px] left-4' />;
     } else {
-      return <RiLockPasswordLine className='absolute top-[18px] left-4' />;
+      return null;
     }
   }
 
