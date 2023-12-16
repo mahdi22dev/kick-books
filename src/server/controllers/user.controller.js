@@ -1,5 +1,6 @@
 import { prisma } from "../../client/lib/prismaClient.js";
 import fs from "fs";
+import { isPDF } from "../lib/utils.js";
 
 export const EditUsername = (req, res) => {
   try {
@@ -29,34 +30,39 @@ export const userUpload = async (req, res) => {
     const file = req?.file;
     console.log(file.path);
     const user = req?.user;
+    console.log(file.originalname);
 
-    // generate buffer
-    const contentPDF = fs.readFileSync(file.path);
-    // encoding file name
-    const encodedFileName = encodeURIComponent(file.originalname);
-
-    await prisma.files.create({
-      data: {
-        fileName: encodedFileName,
-        content: contentPDF,
-        categorie: "Politics",
-        UserId: user?.id,
-        thumbnail: contentPDF,
-      },
-    });
-
-    // Delete the file from the server
-    fs.unlink(file.path, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("File deleted");
-      }
-    });
-
-    res
-      .status(201)
-      .json({ success: true, file, message: "File Uploaded Successfly" });
+    if (isPDF(file.originalname)) {
+      const contentPDF = fs.readFileSync(file.path);
+      const encodedFileName = encodeURIComponent(file.originalname);
+      await prisma.files.create({
+        data: {
+          fileName: encodedFileName,
+          content: contentPDF,
+          categorie: "Politics",
+          UserId: user?.id,
+          thumbnail: contentPDF,
+        },
+      });
+      // Delete the file from the server
+      fs.unlink(file.path, (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log("File deleted");
+        }
+      });
+      res
+        .status(201)
+        .json({ success: true, file, message: "File Uploaded Successfly" });
+    } else {
+      res.status(400).json({
+        success: true,
+        file,
+        message:
+          "Mismatched type: The provided data is in an incorrect format.",
+      });
+    }
   } catch (error) {
     console.log(error.message);
     res.status(401).json({
@@ -155,19 +161,3 @@ export const DeleteFileAfterDW = async (req, res) => {
     });
   }
 };
-
-function makeThumb(page) {
-  // draw page to fit into 96x96 canvas
-  var vp = page.getViewport(1);
-  var canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 96;
-  var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
-  return page
-    .render({
-      canvasContext: canvas.getContext("2d"),
-      viewport: page.getViewport(scale),
-    })
-    .promise.then(function () {
-      return canvas;
-    });
-}

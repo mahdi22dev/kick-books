@@ -109,9 +109,27 @@ export default function SignUp() {
             )}
           />
         </div>
-
         <p className='text-red-500 mt-1 font-light text-sm min-h-[20px]'>
           {errors.password && errors.password.message}
+        </p>
+        {/* Confirm password */}
+        <div className='relative w-full '>
+          <RiLockPasswordLine className='absolute top-[18px] left-4' />
+          <Controller
+            name={"confirmPassword"}
+            disabled={loading}
+            control={control}
+            render={({ field }) => (
+              <input
+                {...field}
+                type={"password"}
+                placeholder='confirm Password'
+              />
+            )}
+          />
+        </div>
+        <p className='text-red-500 mt-1 font-light text-sm min-h-[20px]'>
+          {errors.confirmPassword && errors.confirmPassword.message}
         </p>
 
         <button

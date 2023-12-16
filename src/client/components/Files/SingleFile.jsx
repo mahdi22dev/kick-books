@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { EditVariants, ScaleVariants } from "../../lib/variants";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { FaBookReader } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { updateFileId } from "../../lib/redux/files/filesSlice";
+import { SlOptionsVertical } from "react-icons/sl";
 import img from "../../assets/img.jpg";
 function SingleFile({ file }) {
   console.log(file);

@@ -20,6 +20,9 @@ function UploadContainer() {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
+    reset,
+    setError,
   } = useForm({ resolver: yupResolver(UploadSchema) });
 
   const handleViewrToggle = () => {
@@ -28,13 +31,25 @@ function UploadContainer() {
   };
 
   const handleFileSumbit = async (fileData) => {
-    console.log(fileData.file);
+    const PDF = fileData.file;
+    if (PDF.type != "application/pdf") {
+      setError("file", {
+        type: "filetype",
+        message: "Only PDFs are allowed.",
+      });
+      return;
+    } else if (PDF.size >= 20 * 1024 * 1024) {
+      setError("file", {
+        type: "filesize",
+        message: "20 MB is the maximum allowed file size.",
+      });
+      return;
+    }
 
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append("file", fileData.file);
-      console.log(formData);
+      formData.append("file", PDF);
       const data = await fetch("/user/upload", {
         method: "POST",
         body: formData,
@@ -42,10 +57,10 @@ function UploadContainer() {
 
       const response = await data.json();
       if (response.success) {
-        setFile(null);
         ToastMessage(response?.message);
         handleViewrToggle();
         dispatch(refetchToggle());
+        reset();
       }
     } catch (error) {
       console.log(error.message);
@@ -77,18 +92,17 @@ function UploadContainer() {
                   <input
                     type={"file"}
                     className='hidden'
-                    accept='application/pdf'
                     {...field}
                     onChange={(event) => {
                       onChange(event.target.files[0]);
-                      console.log(event.target.files[0]);
+                      setValue("file", event.target.files[0]);
                       setFile(event.target.files[0]);
                     }}
                   />
                 )}
               />
             </label>
-          </div>{" "}
+          </div>
           {errors.file && ToastError(errors.file.message)}
           {file && (
             <div className='max-w-xs whitespace-normal'>{file?.name}</div>
