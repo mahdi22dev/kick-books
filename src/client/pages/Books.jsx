@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../lib/redux/User/userSlice";
 import Files from "../components/Files/Files";
 import Categories from "../components/Books/Categories";
+
 export default function Books() {
   const dispatch = useDispatch();
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });
@@ -30,8 +31,7 @@ export default function Books() {
   return (
     <main className='relative w-full min-h-screen'>
       <UserUI />
-      <Categories />
-      <div className='flex h-full w-full'>
+      <div className=' h-full w-full'>
         <Files />
       </div>
     </main>

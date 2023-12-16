@@ -1,4 +1,4 @@
-export const categories = [
+export const category = [
   { category: "Polotics" },
   { category: "Horror" },
   { category: "Relegion" },

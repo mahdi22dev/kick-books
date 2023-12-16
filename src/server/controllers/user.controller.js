@@ -38,7 +38,7 @@ export const userUpload = async (req, res) => {
         data: {
           fileName: encodedFileName,
           content: contentPDF,
-          categorie: "Politics",
+          category: "Politics",
           UserId: user?.id,
           thumbnail: contentPDF,
         },
@@ -80,6 +80,7 @@ export const getFiles = async (req, res) => {
       select: {
         fileName: true,
         id: true,
+        category: true,
       },
       where: {
         UserId: UserId,
@@ -88,6 +89,7 @@ export const getFiles = async (req, res) => {
 
     res.status(201).json({ success: true, files });
   } catch (error) {
+    console.log(error.message);
     res.status(401).json({ success: false, message: error.message });
   }
 };

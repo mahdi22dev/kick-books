@@ -24,7 +24,7 @@ model Files {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   fileName      String
   content       Bytes
-  categorie     String 
+  category      String 
   cover         String?
   user          User     @relation(fields: [UserId], references: [id])  
   thumbnail     Bytes 

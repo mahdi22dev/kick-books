@@ -6,6 +6,7 @@ export const filesSlice = createSlice({
     files: [],
     fileId: "",
     filePath: "",
+    filter: "all",
   },
   reducers: {
     updateFiles: (state, actions) => {
@@ -17,10 +18,18 @@ export const filesSlice = createSlice({
     updateFilePath: (state, actions) => {
       state.filePath = actions.payload;
     },
-    CategoriesFilter: (state, actions) => {},
+    categoryFilter: (state, actions) => {
+      console.log(actions.payload);
+      console.log(state.files);
+      const filtredFiles = state.files.filter(
+        (file) => file.category === actions.payload
+      );
+      state.files = filtredFiles;
+    },
   },
 });
 
-export const { updateFiles, updateFileId, updateFilePath } = filesSlice.actions;
+export const { updateFiles, updateFileId, updateFilePath, categoryFilter } =
+  filesSlice.actions;
 
 export default filesSlice.reducer;
