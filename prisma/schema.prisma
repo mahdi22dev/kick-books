@@ -26,6 +26,7 @@ model Files {
   content       Bytes
   categorie     String 
   cover         String?
-  user          User     @relation(fields: [UserId], references: [id])   
+  user          User     @relation(fields: [UserId], references: [id])  
+  thumbnail     Bytes 
   UserId        String   @db.ObjectId
 }

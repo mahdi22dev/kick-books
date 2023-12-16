@@ -8,6 +8,7 @@ import { FiEdit } from "react-icons/fi";
 import { updateFileId } from "../../lib/redux/files/filesSlice";
 import img from "../../assets/img.jpg";
 function SingleFile({ file }) {
+  console.log(file);
   const MotionFaBookReader = motion(FaBookReader);
   const [scaleAnimation, setScaleAnimation] = useState(false);
   const dispatch = useDispatch();
@@ -25,16 +26,16 @@ function SingleFile({ file }) {
   const handleLeave = () => {
     setScaleAnimation(false);
   };
-
+  const decodedFileName = decodeURIComponent(file.fileName);
   return (
     <div
-      className='relative bg-primary max-h-96 max-w-sm cursor-pointer overflow-hidden p-5 '
+      className='relative bg-primary max-h-[400px] max-w-sm  cursor-pointer overflow-hidden p'
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >
-      {/* <div className='w-full p-3 py-2 bg-green-500 text-center '>
+      <div className='p-1 text-center '>
         <p>{decodedFileName}</p>
-      </div> */}
+      </div>
       <img src={img} alt='img' className='w-full h-full' />
       <AnimatePresence>
         <motion.div

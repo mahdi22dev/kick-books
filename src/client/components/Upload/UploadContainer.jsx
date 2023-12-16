@@ -44,7 +44,7 @@ function UploadContainer() {
         dispatch(refetchToggle());
       }
     } catch (error) {
-      ToastError("Theres an Error Please try Again Later");
+      ToastError("There's  an Error Please try Again Later");
     } finally {
       setLoading(false);
     }

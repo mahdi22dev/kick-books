@@ -9,12 +9,10 @@ function PDFViewr({}) {
 
   const dispatch = useDispatch();
 
-  const fetchFileContent = async () => {
-    console.log(filePath);
+  const deleteFile = async () => {
     const url = "http://localhost:3000/user/d/" + filePath;
     const data = await fetch(url);
-    const response = await data.json();
-    console.log(response);
+    await data.json();
   };
 
   const handleViewrToggle = () => {
@@ -22,7 +20,7 @@ function PDFViewr({}) {
     console.log("viewpdf", viewPDF);
     if (viewPDF) {
       console.log("delete file");
-      fetchFileContent();
+      deleteFile();
     }
   };
 

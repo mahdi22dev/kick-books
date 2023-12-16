@@ -1,5 +1,6 @@
-import fs from "fs";
 import { prisma } from "../../client/lib/prismaClient.js";
+import fs from "fs";
+
 export const EditUsername = (req, res) => {
   try {
     const token = req?.cookies?.access_token;
@@ -26,9 +27,12 @@ export const EditUsername = (req, res) => {
 export const userUpload = async (req, res) => {
   try {
     const file = req?.file;
-    console.log(file);
+    console.log(file.path);
     const user = req?.user;
+
+    // generate buffer
     const contentPDF = fs.readFileSync(file.path);
+    // encoding file name
     const encodedFileName = encodeURIComponent(file.originalname);
 
     await prisma.files.create({
@@ -37,6 +41,7 @@ export const userUpload = async (req, res) => {
         content: contentPDF,
         categorie: "Politics",
         UserId: user?.id,
+        thumbnail: contentPDF,
       },
     });
 
@@ -56,7 +61,7 @@ export const userUpload = async (req, res) => {
     console.log(error.message);
     res.status(401).json({
       success: false,
-      message: "Theres an Error Please try Again Later",
+      message: "There's an Error Please try Again Later",
     });
   }
 };
@@ -151,3 +156,19 @@ export const DeleteFileAfterDW = async (req, res) => {
     });
   }
 };
+
+function makeThumb(page) {
+  // draw page to fit into 96x96 canvas
+  var vp = page.getViewport(1);
+  var canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 96;
+  var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
+  return page
+    .render({
+      canvasContext: canvas.getContext("2d"),
+      viewport: page.getViewport(scale),
+    })
+    .promise.then(function () {
+      return canvas;
+    });
+}

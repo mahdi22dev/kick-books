@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { SyncLoader } from "react-spinners";
 import { updateFiles } from "../../lib/redux/files/filesSlice";
 import SingleFile from "./SingleFile";
+import { toggleviewUpload } from "../../lib/redux/User/userSlice";
 
 function Files() {
-  const { files } = useSelector((state) => state.files);
+  // const { files } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
 
   const getFiles = async () => {
@@ -34,6 +36,17 @@ function Files() {
       {loading ? (
         <div className='w-full min-h-[80vh] flex justify-center items-center'>
           <SyncLoader color='#48ccbc' size={16} />
+        </div>
+      ) : files?.length === 0 ? (
+        <div className='w-full min-h-[80vh] flex justify-center items-center flex-col gap-3'>
+          <p>You don't have any books</p>
+          <p>Upload new book (pdf) </p>
+          <button
+            onClick={() => dispatch(toggleviewUpload())}
+            className='text-white text-md p-2 bg-secondary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-secondary/30 disabled:bg-black/5'
+          >
+            Upload
+          </button>
         </div>
       ) : (
         <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto'>
