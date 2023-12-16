@@ -6,10 +6,9 @@ import SingleFile from "./SingleFile";
 import { toggleviewUpload } from "../../lib/redux/User/userSlice";
 
 function Files() {
-  // const { files } = useSelector((state) => state.files);
+  const { files } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
 
   const getFiles = async () => {

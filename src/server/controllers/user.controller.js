@@ -68,7 +68,6 @@ export const userUpload = async (req, res) => {
 
 export const getFiles = async (req, res) => {
   const UserId = req.user.id;
-  console.log(UserId);
   try {
     const files = await prisma.files.findMany({
       select: {
