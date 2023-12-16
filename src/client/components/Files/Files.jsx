@@ -38,7 +38,7 @@ function Files() {
         </div>
       ) : files?.length === 0 ? (
         <div className='w-full min-h-[80vh] flex justify-center items-center flex-col gap-3'>
-          <p>You don't have any books</p>
+          <p>You don't have any Books</p>
           <p>Upload new book (pdf) </p>
           <button
             onClick={() => dispatch(toggleviewUpload())}

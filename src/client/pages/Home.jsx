@@ -5,7 +5,7 @@ export default function Home() {
     <div className='flex justify-center items-center w-full min-h-screen'>
       <img src={img1} alt='' />
       <div className=' p-5 h-28 flex justify-center items-center flex-col gap-5 '>
-        <h1 className='text-xl uppercase'>LogIn To Manage Your books</h1>
+        <h1 className='text-xl uppercase'>LogIn To Manage Your Books</h1>
         <p className='font-normal text-sm'>
           <span>kickBooks</span> is free online storage and pdf reader
         </p>

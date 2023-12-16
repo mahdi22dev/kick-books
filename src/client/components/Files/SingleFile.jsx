@@ -30,7 +30,7 @@ function SingleFile({ file }) {
   const decodedFileName = decodeURIComponent(file.fileName);
   return (
     <div
-      className='relative bg-primary max-h-[400px] max-w-sm  cursor-pointer overflow-hidden p'
+      className='relative bg-primary max-h-[400px] max-w-sm  cursor-pointer overflow-hidden shadow-lg hover:shadow-primary/25'
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >

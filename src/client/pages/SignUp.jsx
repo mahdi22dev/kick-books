@@ -43,7 +43,7 @@ export default function SignUp() {
           setMessage("redirecting...");
         }, 500);
         setTimeout(() => {
-          return navigate("/user/dashboard");
+          return navigate("/user/Books");
         }, 1500);
       }
       setMessage(response?.message);

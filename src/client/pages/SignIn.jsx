@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SyncLoader } from "react-spinners";
 import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
 import MessagesUI from "../components/auth/MessagesUI";
@@ -44,7 +43,7 @@ export default function SignIn() {
           setMessage("redirecting...");
         }, 500);
         setTimeout(() => {
-          return navigate("/user/dashboard");
+          return navigate("/user/Books");
         }, 1000);
       }
     } catch (error) {

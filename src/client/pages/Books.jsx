@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import UserUI from "../components/dashboard/UserUI";
-import SideNav from "../components/dashboard/SideNav";
-import { TfiArrowCircleRight } from "react-icons/tfi";
-import { useDispatch, useSelector } from "react-redux";
+import UserUI from "../components/Books/UserUI";
+import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../lib/redux/User/userSlice";
 import Files from "../components/Files/Files";
-export default function Dashboard() {
+export default function Books() {
   const dispatch = useDispatch();
   const [newUsername, setNewUsername] = useState({ username: "MahdoDodo" });
 
@@ -31,10 +29,6 @@ export default function Dashboard() {
   return (
     <main className='relative w-full min-h-screen'>
       <UserUI />
-      {/* <TfiArrowCircleRight
-        className='text-[30px] text-primary absolute top-[72px] left-3 cursor-pointer duration-300 hover:text-opacity-50'
-        onClick={handleToggle}
-      /> */}
       <div className='flex h-full w-full'>
         <Files />
       </div>

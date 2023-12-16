@@ -2,11 +2,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
+import Books from "./pages/Books.jsx";
 import Settings from "./pages/Settings.jsx";
 import { Provider } from "react-redux";
 import store from "./lib/redux/store.js";
-import PDFViewr from "./components/dashboard/PDFViewr.jsx";
+import PDFViewr from "./components/Books/PDFViewr.jsx";
 import UploadContainer from "./components/Upload/UploadContainer.jsx";
 import { ToastContainer } from "react-toastify";
 function App() {
@@ -24,8 +24,8 @@ function App() {
       element: <SignUp />,
     },
     {
-      path: "/user/dashboard",
-      element: <Dashboard />,
+      path: "/user/Books",
+      element: <Books />,
     },
     {
       path: "/user/Settings",
