@@ -28,11 +28,13 @@ function UploadContainer() {
 
   const handleViewrToggle = () => {
     setFile(null);
+    reset();
     dispatch(toggleviewUpload());
   };
 
   const handleFileSumbit = async (fileData) => {
     const PDF = fileData.file;
+
     if (PDF.type != "application/pdf") {
       setError("file", {
         type: "filetype",
@@ -51,7 +53,7 @@ function UploadContainer() {
       setLoading(true);
       const formData = new FormData();
       formData.append("file", PDF);
-      const data = await fetch("/user/upload", {
+      const data = await fetch("/api/v1/user/upload", {
         method: "POST",
         body: formData,
       });
@@ -62,6 +64,7 @@ function UploadContainer() {
         handleViewrToggle();
         dispatch(refetchToggle());
         reset();
+        setFile(null);
       }
     } catch (error) {
       console.log(error.message);
@@ -82,7 +85,13 @@ function UploadContainer() {
             onClick={handleViewrToggle}
             className='text-[25px] text-secondary hover:text-secondary/60 transition-all duration-300 cursor-pointer absolute top-2 left-2'
           />
-          <FileInput control={control} loading={loading} />
+          <FileInput
+            control={control}
+            loading={loading}
+            setFile={setFile}
+            file={file}
+            setValue={setValue}
+          />
           {errors.file && ToastError(errors.file.message)}
           {file && (
             <div className='max-w-xs whitespace-normal'>{file?.name}</div>

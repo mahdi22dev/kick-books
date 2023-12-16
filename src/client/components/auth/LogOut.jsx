@@ -2,7 +2,7 @@ import React from "react";
 import { GrPowerShutdown } from "react-icons/gr";
 const handleLogOut = async () => {
   try {
-    const data = await fetch("/auth/logout");
+    const data = await fetch("/api/v1/auth/logout");
     const response = await data.json();
     if (response?.success) {
       window.location.href = "/";

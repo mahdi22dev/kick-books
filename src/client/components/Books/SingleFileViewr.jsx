@@ -16,11 +16,9 @@ function SingleFileViewr() {
   const [fileContent, setFileContent] = useState("");
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
 
   const fetchFileContent = async () => {
-    const url = "http://localhost:3000/user/get-file/" + fileId;
+    const url = "http://localhost:3000/api/v1/user/get-file/" + fileId;
     try {
       setLoading(true);
       const data = await fetch(url);
@@ -30,29 +28,21 @@ function SingleFileViewr() {
         setFileContent(response.url);
         dispath(updateFilePath(response.filePath));
       } else {
+        ToastError(response.message);
       }
     } catch (error) {
-      setError("there was an error please try again later");
+      ToastError("there was an error please try again later");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    const lastPage = localStorage.getItem(fileName + "_" + fileId);
-    if (lastPage) {
-      setPageNumber(lastPage.pageNumber);
-    }
     fetchFileContent();
   }, []);
 
   const onNavigate = (page) => {
-    const data = {
-      itemId: fileId,
-      pageNumber: page.currentPage,
-    };
-    const jsonString = JSON.stringify(data);
-    localStorage.setItem(fileName + "_" + fileId, jsonString);
+    localStorage.setItem(`${fileName}_${fileId}_page`, page.currentPage);
   };
 
   return loading ? (
@@ -68,7 +58,7 @@ function SingleFileViewr() {
           ToastError(error.message);
         }}
         plugins={[plugin]}
-        initialPage={pageNumber}
+        initialPage={localStorage.getItem(`${fileName}_${fileId}_page`) || 0}
         onPageChange={onNavigate}
       />
     </Worker>

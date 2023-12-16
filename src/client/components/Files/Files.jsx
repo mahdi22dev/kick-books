@@ -14,14 +14,14 @@ function Files() {
   const getFiles = async () => {
     try {
       setLoading(true);
-      const data = await fetch("/user/get-files");
+      const data = await fetch("/api/v1/user/get-files");
       const response = await data.json();
       if (response) {
         dispatch(updateFiles(response?.files));
         console.log(files);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     } finally {
       setLoading(false);
     }

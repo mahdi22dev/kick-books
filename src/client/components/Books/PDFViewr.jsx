@@ -1,5 +1,5 @@
 import React from "react";
-import SingleFile from "./SingleFileViewr";
+import SingleFileViewr from "./SingleFileViewr";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdClose } from "react-icons/io";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
@@ -10,16 +10,15 @@ function PDFViewr({}) {
   const dispatch = useDispatch();
 
   const deleteFile = async () => {
-    const url = "http://localhost:3000/user/d/" + filePath;
+    const url = "http://localhost:3000/api/v1/user/d/" + filePath;
     const data = await fetch(url);
     await data.json();
   };
 
   const handleViewrToggle = () => {
     dispatch(toggleviewPDF());
-    console.log("viewpdf", viewPDF);
+
     if (viewPDF) {
-      console.log("delete file");
       deleteFile();
     }
   };
@@ -31,7 +30,7 @@ function PDFViewr({}) {
           onClick={handleViewrToggle}
           className='text-[45px] text-primary hover:text-primary/60 transition-all duration-300 cursor-pointer'
         />
-        <SingleFile />
+        <SingleFileViewr />
       </div>
     )
   );

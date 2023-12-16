@@ -27,7 +27,7 @@ export default function SignIn() {
     setError("");
     setLoading(true);
     try {
-      const data = await fetch("/auth/signin", {
+      const data = await fetch("/api/v1/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

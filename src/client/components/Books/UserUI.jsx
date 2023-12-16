@@ -1,5 +1,4 @@
 import LogOut from "../auth/LogOut";
-import { IoSettings } from "react-icons/io5";
 import { FaUpload } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { toggleviewUpload } from "../../lib/redux/User/userSlice";

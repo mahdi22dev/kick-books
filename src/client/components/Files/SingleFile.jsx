@@ -9,7 +9,6 @@ import { SlOptionsVertical } from "react-icons/sl";
 import img from "../../assets/img.jpg";
 
 function SingleFile({ file }) {
-  console.log(file);
   const MotionFaBookReader = motion(FaBookReader);
   const [scaleAnimation, setScaleAnimation] = useState(false);
   const dispatch = useDispatch();

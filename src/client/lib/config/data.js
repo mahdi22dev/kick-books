@@ -1,0 +1,17 @@
+export const categories = [
+  { category: "Polotics" },
+  { category: "Horror" },
+  { category: "Relegion" },
+  { category: "Polotics" },
+  { category: "Polotics" },
+  { category: "Polotics" },
+  { category: "Horror" },
+  { category: "Relegion" },
+  { category: "Polotics" },
+  { category: "Polotics" },
+  { category: "Polotics" },
+  { category: "Horror" },
+  { category: "Relegion" },
+  { category: "Polotics" },
+  { category: "Polotics" },
+];
