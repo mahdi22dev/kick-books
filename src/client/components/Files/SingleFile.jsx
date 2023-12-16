@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { EditVariants, ScaleVariants } from "../../lib/variants";
 import { toggleviewPDF } from "../../lib/redux/User/userSlice";
 import { FaBookReader } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
 import { updateFileId } from "../../lib/redux/files/filesSlice";
 import { SlOptionsVertical } from "react-icons/sl";
 import img from "../../assets/img.jpg";
+
 function SingleFile({ file }) {
   console.log(file);
   const MotionFaBookReader = motion(FaBookReader);
@@ -76,8 +76,8 @@ function SingleFile({ file }) {
               : "hidden"
           }  top-4 right-2 overflow-hidden overflow-x-hidden z-[100] `}
         >
-          <FiEdit
-            className='[font-size:_clamp(15px,4vw,40px)] text-primary gridIcon'
+          <SlOptionsVertical
+            className='[font-size:_clamp(12px,4vw,35px)] text-primary gridIcon'
             onClick={() => console.log("edit clicked")}
           />
         </motion.div>
