@@ -28,13 +28,12 @@ export const EditUsername = (req, res) => {
 export const userUpload = async (req, res) => {
   try {
     const file = req?.file;
-    console.log(file.path);
     const user = req?.user;
-    console.log(file.originalname);
 
     if (isPDF(file.originalname)) {
       const contentPDF = fs.readFileSync(file.path);
       const encodedFileName = encodeURIComponent(file.originalname);
+
       await prisma.files.create({
         data: {
           fileName: encodedFileName,
@@ -44,6 +43,7 @@ export const userUpload = async (req, res) => {
           thumbnail: contentPDF,
         },
       });
+
       // Delete the file from the server
       fs.unlink(file.path, (err) => {
         if (err) {
@@ -52,6 +52,7 @@ export const userUpload = async (req, res) => {
           console.log("File deleted");
         }
       });
+
       res
         .status(201)
         .json({ success: true, file, message: "File Uploaded Successfly" });

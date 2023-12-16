@@ -10,6 +10,7 @@ import BackToHome from "../components/Home/BackToHome";
 import TextHeader from "../components/auth/TextHeader";
 import MessagesUI from "../components/auth/MessagesUI";
 import { SignInschema } from "../lib/vidationSchema";
+import TextInput from "../components/Form/TextInput";
 
 export default function SignIn() {
   let navigate = useNavigate();
@@ -65,40 +66,21 @@ export default function SignIn() {
         onSubmit={handleSubmit(onSumbit)}
       >
         {/* email */}
-        <div className='relative w-full'>
-          <MdOutlineAlternateEmail className='absolute top-[18px] left-4' />
-          <Controller
-            name={"email"}
-            control={control}
-            defaultValue={"test@gmail.com"}
-            disabled={loading}
-            render={({ field }) => (
-              <input {...field} type='email' placeholder='email' />
-            )}
-          />
-          <p className='text-red-500 mt-1 font-light text-sm min-h-[20px] w-full'>
-            {errors.email && errors.email.message}
-          </p>
-        </div>
-
+        <TextInput
+          errors={errors}
+          Inputype={"email"}
+          loading={loading}
+          defaultValue={"test@gmail.com"}
+          control={control}
+        />
         {/* password */}
-        <div className='relative w-full '>
-          <RiLockPasswordLine className='absolute top-[18px] left-4' />
-          <Controller
-            name={"password"}
-            control={control}
-            defaultValue='mahdi2019'
-            disabled={loading}
-            render={({ field }) => (
-              <input {...field} type={"password"} placeholder='password' />
-            )}
-          />
-        </div>
-
-        <p className='text-red-500 mt-1 font-light text-sm min-h-[20px]'>
-          {errors.password && errors.password.message}
-        </p>
-
+        <TextInput
+          errors={errors}
+          Inputype={"password"}
+          loading={loading}
+          defaultValue={"mahdi2019"}
+          control={control}
+        />
         <button
           type='submit'
           className='text-white p-2 bg-primary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-primary/30 disabled:bg-black/5'

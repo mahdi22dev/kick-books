@@ -1,6 +1,7 @@
-import { Mime } from "mime";
+import path from "path";
 
 export const isPDF = (filename) => {
-  const mimeType = Mime.lookup(filename);
-  return mimeType === "application/pdf";
+  const FileType = path.extname(filename);
+  console.log(FileType);
+  return FileType === ".pdf";
 };

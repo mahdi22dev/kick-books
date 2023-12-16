@@ -10,6 +10,7 @@ import { ToastError, ToastMessage } from "../../lib/toast";
 import { UploadSchema } from "../../lib/vidationSchema";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import FileInput from "../Form/FileInput";
 
 function UploadContainer() {
   const [file, setFile] = useState(null);
@@ -35,7 +36,7 @@ function UploadContainer() {
     if (PDF.type != "application/pdf") {
       setError("file", {
         type: "filetype",
-        message: "Only PDFs are allowed.",
+        message: "Only PDFs are valid.",
       });
       return;
     } else if (PDF.size >= 20 * 1024 * 1024) {
@@ -81,28 +82,7 @@ function UploadContainer() {
             onClick={handleViewrToggle}
             className='text-[25px] text-secondary hover:text-secondary/60 transition-all duration-300 cursor-pointer absolute top-2 left-2'
           />
-          <div className='flex items-center space-x-4'>
-            <label className='inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-secondary/50 active:bg-accent focus:outline-none focus:border-blue-700 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150'>
-              <span>Choose a file</span>
-              <Controller
-                name={"file"}
-                control={control}
-                disabled={loading}
-                render={({ field: { value, onChange, ...field } }) => (
-                  <input
-                    type={"file"}
-                    className='hidden'
-                    {...field}
-                    onChange={(event) => {
-                      onChange(event.target.files[0]);
-                      setValue("file", event.target.files[0]);
-                      setFile(event.target.files[0]);
-                    }}
-                  />
-                )}
-              />
-            </label>
-          </div>
+          <FileInput control={control} loading={loading} />
           {errors.file && ToastError(errors.file.message)}
           {file && (
             <div className='max-w-xs whitespace-normal'>{file?.name}</div>
