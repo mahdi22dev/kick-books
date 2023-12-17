@@ -1,17 +1,8 @@
 export const category = [
-  { category: "Polotics" },
+  { category: "All" },
+  { category: "Politics" },
   { category: "Horror" },
   { category: "Relegion" },
-  { category: "Polotics" },
-  { category: "Polotics" },
-  { category: "Polotics" },
-  { category: "Horror" },
-  { category: "Relegion" },
-  { category: "Polotics" },
-  { category: "Polotics" },
-  { category: "Polotics" },
-  { category: "Horror" },
-  { category: "Relegion" },
-  { category: "Polotics" },
-  { category: "Polotics" },
+
+  ,
 ];

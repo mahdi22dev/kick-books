@@ -18,18 +18,13 @@ export const filesSlice = createSlice({
     updateFilePath: (state, actions) => {
       state.filePath = actions.payload;
     },
-    categoryFilter: (state, actions) => {
-      console.log(actions.payload);
-      console.log(state.files);
-      const filtredFiles = state.files.filter(
-        (file) => file.category === actions.payload
-      );
-      state.files = filtredFiles;
+    UpdateFilter: (state, actions) => {
+      state.filter = actions.payload;
     },
   },
 });
 
-export const { updateFiles, updateFileId, updateFilePath, categoryFilter } =
+export const { updateFiles, updateFileId, updateFilePath, UpdateFilter } =
   filesSlice.actions;
 
 export default filesSlice.reducer;

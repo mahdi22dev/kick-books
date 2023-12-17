@@ -7,7 +7,7 @@ import { toggleviewUpload } from "../../lib/redux/User/userSlice";
 import Categories from "../Books/Categories";
 
 function Files() {
-  const { files } = useSelector((state) => state.files);
+  const { files, filter } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [filesData, setFilesData] = useState(files);
@@ -16,11 +16,11 @@ function Files() {
   const getFiles = async () => {
     try {
       setLoading(true);
-      const data = await fetch("/api/v1/user/get-files");
+      const data = await fetch("/api/v1/user/get-files/q/all");
       const response = await data.json();
       if (response) {
         dispatch(updateFiles(response?.files));
-        setFilesData(files);
+        setFilesData(response?.files);
       }
     } catch (error) {
       console.log(error.message);
@@ -36,7 +36,7 @@ function Files() {
 
   return (
     <>
-      <Categories />
+      <Categories setFilesData={setFilesData} filesData={filesData} />
       <div className='p-5 w-full h-full'>
         {loading ? (
           <div className='w-full min-h-[80vh] flex justify-center items-center'>
@@ -54,11 +54,22 @@ function Files() {
             </button>
           </div>
         ) : (
-          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto'>
-            {files?.map((file) => {
-              return <SingleFile key={file.id} file={file} />;
-            })}
-          </div>
+          <>
+            {filesData.length === 0 && (
+              <div className='w-full min-h-[80vh] flex justify-center items-center flex-col gap-3'>
+                <p>You don't have any Books in {filter} categorie</p>
+                <p>
+                  to add favorite book to this categorie click 3 dots in book
+                  and move it here
+                </p>
+              </div>
+            )}
+            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto'>
+              {filesData?.map((file) => {
+                return <SingleFile key={file.id} file={file} />;
+              })}
+            </div>
+          </>
         )}
       </div>
     </>

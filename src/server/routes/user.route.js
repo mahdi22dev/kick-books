@@ -4,6 +4,7 @@ import {
   DeleteFileAfterDW,
   EditUsername,
   getFiles,
+  getFilesByFilter,
   getSingleFile,
   userUpload,
 } from "../controllers/user.controller.js";
@@ -29,7 +30,7 @@ userRoute.get("/settings", (req, res, next) => {
 
 userRoute.post("/edit", EditUsername);
 userRoute.post("/upload", upload.single("file"), userUpload);
-userRoute.get("/get-files", getFiles);
+userRoute.get("/get-files/q/:filter", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
 export default userRoute;

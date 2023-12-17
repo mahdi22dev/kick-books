@@ -10,7 +10,7 @@ function PDFViewr({}) {
   const dispatch = useDispatch();
 
   const deleteFile = async () => {
-    const url = "http://localhost:3000/api/v1/user/d/" + filePath;
+    const url = "/api/v1/user/d/" + filePath;
     const data = await fetch(url);
     await data.json();
   };
