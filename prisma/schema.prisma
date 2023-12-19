@@ -18,7 +18,8 @@ model User {
   emailVerified DateTime?
   createdAt     DateTime @default(now())
   image         String?
-  files         Files[]
+  files         Files[] 
+  catogories    Catogories[]
 }
 model Files {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -28,5 +29,11 @@ model Files {
   cover         String?
   user          User     @relation(fields: [UserId], references: [id])  
   thumbnail     Bytes 
+  UserId        String   @db.ObjectId
+}
+model Catogories {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  user          User     @relation(fields: [UserId], references: [id])  
   UserId        String   @db.ObjectId
 }

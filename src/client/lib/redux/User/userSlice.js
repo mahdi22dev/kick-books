@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     viewPDF: false,
     viewUpload: false,
     refetch: false,
+    edit: false,
   },
   reducers: {
     toggleSidebar: (state) => {

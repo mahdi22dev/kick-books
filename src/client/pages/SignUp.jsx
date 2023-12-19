@@ -35,6 +35,7 @@ export default function SignUp() {
         body: JSON.stringify(values),
       });
       const response = await data.json();
+      setMessage(response?.message);
       if (response?.success) {
         const userName = response?.user?.name;
         localStorage.setItem("userName", userName);
@@ -46,7 +47,6 @@ export default function SignUp() {
           return navigate("/user/Books");
         }, 1500);
       }
-      setMessage(response?.message);
     } catch (error) {
       setError("there was an error please try again later");
     } finally {

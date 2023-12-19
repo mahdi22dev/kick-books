@@ -3,8 +3,9 @@ import path from "path";
 import {
   DeleteFileAfterDW,
   EditUsername,
+  addCategorie,
+  getCategories,
   getFiles,
-  getFilesByFilter,
   getSingleFile,
   userUpload,
 } from "../controllers/user.controller.js";
@@ -33,4 +34,6 @@ userRoute.post("/upload", upload.single("file"), userUpload);
 userRoute.get("/get-files/q/:filter", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
+userRoute.post("/categorie/add", addCategorie);
+userRoute.get("/categorie/get", getCategories);
 export default userRoute;

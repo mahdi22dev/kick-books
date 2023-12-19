@@ -16,3 +16,11 @@ export const SignInschema = yup.object().shape({
 export const UploadSchema = yup.object().shape({
   file: yup.mixed().required("You need to provide a file"),
 });
+export const CetegorieSchema = yup.object().shape({
+  categorie: yup
+    .string()
+    .min(3, "Please enter at least 3 characters to add categorie")
+    .max(10, "max 10 characters are allowed")
+
+    .required("You need to provide a categorie name"),
+});

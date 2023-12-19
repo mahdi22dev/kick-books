@@ -104,12 +104,10 @@ export const getFiles = async (req, res) => {
       });
     }
     if (files.length === 0) {
-      res
-        .status(404)
-        .json({
-          success: true,
-          error: `files in ${filter} categorie not found`,
-        });
+      res.status(404).json({
+        success: true,
+        error: `files in ${filter} categorie not found`,
+      });
     } else {
       res.status(201).json({ success: true, files });
     }
@@ -189,25 +187,44 @@ export const DeleteFileAfterDW = async (req, res) => {
     });
   }
 };
-export const getFilesByFilter = async (req, res) => {
-  const filter = req.params.filter;
-  res.status(200).json({ filter });
-  // const UserId = req.user.id;
-  // try {
-  //   const files = await prisma.files.findMany({
-  //     select: {
-  //       fileName: true,
-  //       id: true,
-  //       category: true,
-  //     },
-  //     where: {
-  //       UserId: UserId,
-  //     },
-  //   });
 
-  //   res.status(201).json({ success: true, files });
-  // } catch (error) {
-  //   console.log(error.message);
-  //   res.status(401).json({ success: false, message: error.message });
-  // }
+export const addCategorie = async (req, res) => {
+  const categorie = req?.body;
+  const user = req?.user;
+  try {
+    await prisma.catogories.create({
+      data: {
+        name: categorie?.categorie,
+        UserId: user?.id,
+      },
+    });
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
+export const getCategories = async (req, res) => {
+  const user = req?.user;
+  try {
+    const data = await prisma.catogories.findMany({
+      select: {
+        name: true,
+      },
+      where: {
+        UserId: user?.id,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      categories: data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };

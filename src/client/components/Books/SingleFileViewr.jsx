@@ -4,9 +4,9 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout/lib";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { useDispatch, useSelector } from "react-redux";
-import { SyncLoader } from "react-spinners";
 import { ToastError } from "../../lib/toast";
 import { updateFilePath } from "../../lib/redux/files/filesSlice";
+import LoadingUi from "../LoadingUi";
 
 function SingleFileViewr() {
   const workerUrl = `https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
@@ -46,9 +46,7 @@ function SingleFileViewr() {
   };
 
   return loading ? (
-    <div className='w-full min-h-[80vh] flex justify-center items-center bg-inherit'>
-      <SyncLoader color='#48ccbc' size={16} />
-    </div>
+    <LoadingUi />
   ) : (
     <Worker workerUrl={workerUrl}>
       <Viewer
