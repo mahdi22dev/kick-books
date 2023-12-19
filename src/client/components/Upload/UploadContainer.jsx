@@ -11,6 +11,7 @@ import { UploadSchema } from "../../lib/vidationSchema";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FileInput from "../Form/FileInput";
+import LoadingButton from "../Form/LoadingButton";
 
 function UploadContainer() {
   const [file, setFile] = useState(null);
@@ -96,13 +97,7 @@ function UploadContainer() {
           {file && (
             <div className='max-w-xs whitespace-normal'>{file?.name}</div>
           )}
-          <button
-            type='submit'
-            className='text-white text-md p-2 bg-secondary hover:bg-opacity-60 rounded-full transition-all duration-300 uppercase shadow-lg hover:shadow-secondary/30 disabled:bg-black/5'
-            disabled={loading}
-          >
-            {loading ? <SyncLoader color='#fff' size={8} /> : "Upload"}
-          </button>
+          <LoadingButton loading={loading} text={"Upload"} />
         </form>
       </div>
     )

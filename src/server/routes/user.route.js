@@ -4,6 +4,7 @@ import {
   DeleteFileAfterDW,
   EditUsername,
   addCategorie,
+  deletCategorie,
   getCategories,
   getFiles,
   getSingleFile,
@@ -36,4 +37,5 @@ userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
 userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
+userRoute.get("/categorie/delete/:id", deletCategorie);
 export default userRoute;

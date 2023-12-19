@@ -9,6 +9,7 @@ import store from "./lib/redux/store.js";
 import PDFViewr from "./components/Books/PDFViewr.jsx";
 import UploadContainer from "./components/Upload/UploadContainer.jsx";
 import { ToastContainer } from "react-toastify";
+import ConfirmDelete from "./components/ConfirmDelete.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -37,6 +38,7 @@ function App() {
       <ToastContainer />
       <PDFViewr />
       <UploadContainer />
+      <ConfirmDelete />
       <RouterProvider router={router} />
     </Provider>
   );

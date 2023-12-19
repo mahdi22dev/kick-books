@@ -213,6 +213,7 @@ export const getCategories = async (req, res) => {
     const data = await prisma.catogories.findMany({
       select: {
         name: true,
+        id: true,
       },
       where: {
         UserId: user?.id,
@@ -221,6 +222,23 @@ export const getCategories = async (req, res) => {
     res.status(200).json({
       success: true,
       categories: data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+    });
+  }
+};
+export const deletCategorie = async (req, res) => {
+  const categorie = req?.params?.id;
+  try {
+    await prisma.user.delete({
+      where: {
+        id: categorie,
+      },
+    });
+    res.status(200).json({
+      success: true,
     });
   } catch (error) {
     res.status(400).json({

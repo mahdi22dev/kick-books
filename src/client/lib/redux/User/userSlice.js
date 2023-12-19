@@ -7,7 +7,8 @@ export const userSlice = createSlice({
     viewPDF: false,
     viewUpload: false,
     refetch: false,
-    edit: false,
+    DeleteCategorie: false,
+    ConfirmDelete: false,
   },
   reducers: {
     toggleSidebar: (state) => {
@@ -22,10 +23,26 @@ export const userSlice = createSlice({
     refetchToggle: (state) => {
       state.refetch = !state.refetch;
     },
+    ToggleDelete: (state) => {
+      state.DeleteCategorie = !state.DeleteCategorie;
+    },
+    ToggleConfirmDelete: (state) => {
+      state.ConfirmDelete = true;
+    },
+    CloseConfirmDelete: (state) => {
+      state.ConfirmDelete = false;
+    },
   },
 });
 
-export const { toggleSidebar, toggleviewPDF, toggleviewUpload, refetchToggle } =
-  userSlice.actions;
+export const {
+  toggleSidebar,
+  toggleviewPDF,
+  toggleviewUpload,
+  refetchToggle,
+  ToggleDelete,
+  ToggleConfirmDelete,
+  CloseConfirmDelete,
+} = userSlice.actions;
 
 export default userSlice.reducer;
