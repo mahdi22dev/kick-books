@@ -6,6 +6,7 @@ export const filesSlice = createSlice({
     files: [],
     fileId: "",
     filePath: "",
+    singlFile: {},
     filter: "all",
     categorieObj: {},
     categories: [],
@@ -29,6 +30,9 @@ export const filesSlice = createSlice({
     UpdateCategorieObj: (state, actions) => {
       state.categorieObj = actions.payload;
     },
+    UpdateSingleFile: (state, actions) => {
+      state.singlFile = actions.payload;
+    },
   },
 });
 
@@ -39,6 +43,7 @@ export const {
   UpdateFilter,
   UpdateCategories,
   UpdateCategorieObj,
+  UpdateSingleFile,
 } = filesSlice.actions;
 
 export default filesSlice.reducer;

@@ -1,30 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { EditVariants, ScaleVariants } from "../../lib/variants";
-import { toggleviewPDF } from "../../lib/redux/User/userSlice";
-import { FaBookReader } from "react-icons/fa";
-import { updateFileId } from "../../lib/redux/files/filesSlice";
-import { SlOptionsVertical } from "react-icons/sl";
+import { EditVariants } from "../../lib/variants";
+import {
+  ToggleFileConfirmDelete,
+  toggleviewPDF,
+} from "../../lib/redux/User/userSlice";
+import { FaFolder } from "react-icons/fa";
+import {
+  UpdateSingleFile,
+  updateFileId,
+} from "../../lib/redux/files/filesSlice";
+import { MdDelete } from "react-icons/md";
 import img from "../../assets/img.jpg";
+import { isUserUsingMobile } from "../../lib/utils";
+import ViewFileToggle from "./ViewFileToggle";
 
 function SingleFile({ file }) {
-  const MotionFaBookReader = motion(FaBookReader);
+  const [isMobile, setIsMobile] = useState(false);
   const [scaleAnimation, setScaleAnimation] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsMobile(isUserUsingMobile());
+    setScaleAnimation(isUserUsingMobile());
+  }, []);
 
   const handleViewrToggle = (id) => {
     dispatch(updateFileId(id));
     dispatch(toggleviewPDF());
-    setScaleAnimation(false);
   };
 
   const handleHover = () => {
-    setScaleAnimation(true);
+    if (!isMobile) {
+      setScaleAnimation(true);
+    }
   };
 
   const handleLeave = () => {
-    setScaleAnimation(false);
+    if (!isMobile) {
+      setScaleAnimation(false);
+    }
   };
   const decodedFileName = decodeURIComponent(file.fileName);
   return (
@@ -37,30 +53,11 @@ function SingleFile({ file }) {
         <p>{decodedFileName}</p>
       </div>
       <img src={img} alt='img' className='w-full h-full' />
-      <AnimatePresence>
-        <motion.div
-          layout
-          variants={ScaleVariants}
-          initial={"initial"}
-          animate={"animate"}
-          exit={"exit"}
-          key={scaleAnimation}
-          className={`${
-            scaleAnimation
-              ? "absolute flex justify-center items-center"
-              : "hidden"
-          }  top-0 bottom-0 right-0 left-0 overflow-hidden overflow-x-hidden w bg-black/30 z-[100] `}
-          onClick={() => handleViewrToggle(file.id)}
-        >
-          <MotionFaBookReader
-            className='[font-size:_clamp(15px,4vw,40px)] text-primary gridIcon'
-            initial={"initial"}
-            animate={"animate"}
-            exit={"exit"}
-            key={scaleAnimation}
-          />
-        </motion.div>
-      </AnimatePresence>
+      <ViewFileToggle
+        scaleAnimation={scaleAnimation}
+        file={file}
+        onClick={() => handleViewrToggle(file.id)}
+      />
       <AnimatePresence>
         <motion.div
           layout
@@ -75,9 +72,17 @@ function SingleFile({ file }) {
               : "hidden"
           }  top-4 right-2 overflow-hidden overflow-x-hidden z-[100] `}
         >
-          <SlOptionsVertical
+          <FaFolder
             className='[font-size:_clamp(12px,4vw,35px)] text-primary gridIcon'
-            onClick={() => console.log("edit clicked")}
+            onClick={() => console.log("move clicked")}
+          />
+          <MdDelete
+            className='[font-size:_clamp(12px,4vw,35px)] text-primary gridIcon'
+            onClick={() => {
+              console.log("delete clicked");
+              dispatch(UpdateSingleFile(file));
+              dispatch(ToggleFileConfirmDelete());
+            }}
           />
         </motion.div>
       </AnimatePresence>

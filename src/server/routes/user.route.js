@@ -31,11 +31,16 @@ userRoute.get("/settings", (req, res, next) => {
 });
 
 userRoute.post("/edit", EditUsername);
+
+// files
 userRoute.post("/upload", upload.single("file"), userUpload);
 userRoute.get("/get-files/q/:filter", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
+userRoute.post("/move-file/", deletCategorie);
+// categories
 userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
 userRoute.get("/categorie/d/:id", deletCategorie);
+
 export default userRoute;

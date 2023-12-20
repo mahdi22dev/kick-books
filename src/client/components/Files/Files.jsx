@@ -39,7 +39,6 @@ function Files() {
 
   useEffect(() => {
     getFiles(filter);
-    console.log(filter);
   }, [refetch, filter]);
 
   return (

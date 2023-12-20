@@ -10,6 +10,7 @@ import PDFViewr from "./components/Books/PDFViewr.jsx";
 import UploadContainer from "./components/Upload/UploadContainer.jsx";
 import { ToastContainer } from "react-toastify";
 import ConfirmDelete from "./components/ConfirmDelete.jsx";
+import ConfirmFileDelete from "./components/ConfirmFileDelete.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -39,6 +40,7 @@ function App() {
       <PDFViewr />
       <UploadContainer />
       <ConfirmDelete />
+      <ConfirmFileDelete />
       <RouterProvider router={router} />
     </Provider>
   );

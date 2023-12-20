@@ -190,6 +190,8 @@ export const DeleteFileAfterDW = async (req, res) => {
   }
 };
 
+export const MoveFiles = async (req, res) => {};
+
 // categories endpoints
 export const addCategorie = async (req, res) => {
   const categorie = req?.body;

@@ -10,6 +10,8 @@ export const userSlice = createSlice({
     refetchCategories: false,
     DeleteCategorie: false,
     ConfirmDelete: false,
+    ConfirmFileDelete: false,
+    mobileState: false,
   },
   reducers: {
     toggleSidebar: (state) => {
@@ -36,6 +38,12 @@ export const userSlice = createSlice({
     CloseConfirmDelete: (state) => {
       state.ConfirmDelete = false;
     },
+    ToggleFileConfirmDelete: (state) => {
+      state.ConfirmFileDelete = true;
+    },
+    CloseFileConfirmDelete: (state) => {
+      state.ConfirmFileDelete = false;
+    },
   },
 });
 
@@ -48,6 +56,8 @@ export const {
   ToggleConfirmDelete,
   CloseConfirmDelete,
   CategorierefetchToggle,
+  ToggleFileConfirmDelete,
+  CloseFileConfirmDelete,
 } = userSlice.actions;
 
 export default userSlice.reducer;

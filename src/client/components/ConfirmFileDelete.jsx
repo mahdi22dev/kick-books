@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingButton from "./Form/LoadingButton";
 import CancelButton from "./CancelButton";
-import {
-  CategorierefetchToggle,
-  CloseConfirmDelete,
-} from "../lib/redux/User/userSlice";
+import { CloseFileConfirmDelete } from "../lib/redux/User/userSlice";
 import { ToastError, ToastMessage } from "../lib/toast";
 
-function ConfirmDelete() {
-  const { ConfirmDelete } = useSelector((state) => state.user);
-  const { categorieObj } = useSelector((state) => state.files);
+function ConfirmFileDelete() {
+  const { ConfirmFileDelete } = useSelector((state) => state.user);
+  const { singlFile } = useSelector((state) => state.files);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  console.log(singlFile);
 
   const handledelete = async () => {
     try {
@@ -35,13 +33,13 @@ function ConfirmDelete() {
   };
 
   return (
-    ConfirmDelete && (
+    ConfirmFileDelete && (
       <div className='flex justify-center items-center absolute top-0 right-0 left-0 -bottom-16 min-h-screen bg-black/50 z-[100] px-10 py-7'>
         <div className='relative flex justify-center items-center flex-col gap-6 bg-primary min-h-[200px] min-w-[80%] md:min-w-[300px] p-4'>
           <p className='capitalize'>
-            are you sure you whant to delete this categorie?
+            are you sure you whant to delete this file?
           </p>
-          <p className='text-accent'>{categorieObj && categorieObj.name}</p>
+          <p>{singlFile && singlFile.fileName}</p>
           <div className='flex justify-center items-center gap-5'>
             <LoadingButton
               loading={loading}
@@ -50,7 +48,7 @@ function ConfirmDelete() {
             />
             <CancelButton
               loading={loading}
-              func={() => dispatch(CloseConfirmDelete())}
+              func={() => dispatch(CloseFileConfirmDelete())}
             />
           </div>
         </div>
@@ -59,4 +57,4 @@ function ConfirmDelete() {
   );
 }
 
-export default ConfirmDelete;
+export default ConfirmFileDelete;
