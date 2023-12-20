@@ -24,9 +24,7 @@ function Categories({}) {
   const getCategories = async () => {
     setLoading(true);
     try {
-      const data = await fetch(
-        "http://localhost:3000/api/v1/user/categorie/get"
-      );
+      const data = await fetch("/api/v1/user/categorie/get");
       const response = await data.json();
       console.log(response);
       if (response.success) {

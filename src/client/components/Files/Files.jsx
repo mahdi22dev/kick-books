@@ -6,6 +6,9 @@ import Categories from "../Books/Categories";
 import { ToastError } from "../../lib/toast";
 import UploadController from "../Upload/UploadController";
 import LoadingUi from "../LoadingUi";
+import LoadingButton from "../Form/LoadingButton";
+
+let pagination = 0;
 
 function Files() {
   const { files, filter } = useSelector((state) => state.files);
@@ -16,8 +19,7 @@ function Files() {
 
   const getFiles = async (filter) => {
     dispatch(updateFiles([]));
-
-    const url = `/api/v1/user/get-files/q/${filter ?? "ALL"}`;
+    const url = `/api/v1/user/get-files/q/${filter ?? "ALL"}/p/${pagination}`;
     try {
       setError(null);
       setLoading(true);
@@ -63,10 +65,19 @@ function Files() {
             </div>
           )
         ) : (
-          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto'>
+          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto relative pb-10'>
             {files?.map((file) => {
               return <SingleFile key={file.id} file={file} />;
             })}
+            <div className='h-5'></div>
+            <LoadingButton
+              loading={loading}
+              text={"Load More"}
+              customclass={"absolute bottom-0 left-[45%] max-w-[200px] mb-5"}
+              onClick={() => {
+                console.log("LoadMore");
+              }}
+            />
           </div>
         )}
       </div>

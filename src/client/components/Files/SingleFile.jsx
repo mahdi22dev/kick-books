@@ -72,10 +72,6 @@ function SingleFile({ file }) {
               : "hidden"
           }  top-4 right-2 overflow-hidden overflow-x-hidden z-[100] `}
         >
-          <FaFolder
-            className='[font-size:_clamp(12px,4vw,35px)] text-primary gridIcon'
-            onClick={() => console.log("move clicked")}
-          />
           <MdDelete
             className='[font-size:_clamp(12px,4vw,35px)] text-primary gridIcon'
             onClick={() => {

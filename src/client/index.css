@@ -9,6 +9,7 @@
 
 body {
   font-family: "Noto Sans Arabic", sans-serif;
+  position: relative;
 }
 input {
   @apply min-h-[50px] rounded-full w-full pl-10 placeholder:capitalize placeholder:font-thin;

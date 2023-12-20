@@ -77,7 +77,8 @@ export const userUpload = async (req, res) => {
 
 export const getFiles = async (req, res) => {
   const filter = req.params.filter;
-
+  const page = req.params.page;
+  console.log(page);
   const UserId = req.user.id;
   let files = [];
   try {
@@ -190,7 +191,24 @@ export const DeleteFileAfterDW = async (req, res) => {
   }
 };
 
-export const MoveFiles = async (req, res) => {};
+export const DeeleteFile = async (req, res) => {
+  const fileId = req.params?.id;
+
+  try {
+    await prisma.files.delete({
+      where: {
+        id: fileId,
+      },
+    });
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+    });
+  }
+};
 
 // categories endpoints
 export const addCategorie = async (req, res) => {

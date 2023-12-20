@@ -33,6 +33,7 @@ function UploadContainer() {
   const handleViewrToggle = () => {
     setFile(null);
     reset();
+    setSelectedOption(null);
     dispatch(toggleviewUpload());
   };
 
@@ -97,12 +98,10 @@ function UploadContainer() {
               className='text-[25px] text-secondary hover:text-secondary/60 transition-all duration-300 cursor-pointer absolute top-2 left-2'
             />
             <div className='flex flex-col justify-center items-center gap-2 text-sm'>
-              <p>Select Categorie</p>
+              <p>Select a Categorie</p>
               <Select
-                value={selectedOption}
                 onChange={handleDropdownChange}
                 options={options}
-                defaultInputValue='Art'
                 placeholder='Select...'
               />
             </div>

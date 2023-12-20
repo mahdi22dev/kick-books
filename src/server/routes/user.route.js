@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import {
+  DeeleteFile,
   DeleteFileAfterDW,
   EditUsername,
   addCategorie,
@@ -34,10 +35,10 @@ userRoute.post("/edit", EditUsername);
 
 // files
 userRoute.post("/upload", upload.single("file"), userUpload);
-userRoute.get("/get-files/q/:filter", getFiles);
+userRoute.get("/get-files/q/:filter/p/:page", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
-userRoute.post("/move-file/", deletCategorie);
+userRoute.get("/file/d/:id", DeeleteFile);
 // categories
 userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
