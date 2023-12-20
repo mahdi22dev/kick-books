@@ -77,10 +77,12 @@ export const userUpload = async (req, res) => {
 
 export const getFiles = async (req, res) => {
   const filter = req.params.filter;
-  const page = req.params.page;
-  console.log(page);
+  const page = parseInt(req.params.page) || 1;
+  const itemsPerPage = 6;
   const UserId = req.user.id;
   let files = [];
+  const skip = (page - 1) * itemsPerPage;
+
   try {
     if (filter.toUpperCase() == "ALL") {
       files = await prisma.files.findMany({
@@ -92,6 +94,8 @@ export const getFiles = async (req, res) => {
         where: {
           UserId: UserId,
         },
+        skip: skip,
+        take: itemsPerPage,
       });
     } else {
       files = await prisma.files.findMany({
@@ -104,11 +108,14 @@ export const getFiles = async (req, res) => {
           UserId: UserId,
           category: filter,
         },
+        skip: skip,
+        take: itemsPerPage,
       });
     }
+
     if (files.length === 0) {
       res.status(404).json({
-        success: true,
+        success: false,
         error: `files in ${filter} categorie not found`,
       });
     } else {

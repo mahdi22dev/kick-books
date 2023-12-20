@@ -14,6 +14,8 @@ function Files() {
   const { files, filter } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [viewMore, setViewMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
@@ -25,10 +27,11 @@ function Files() {
       setLoading(true);
       const data = await fetch(url);
       const response = await data.json();
-      if (response) {
+      if (response.success) {
         console.log(response);
         dispatch(updateFiles(response?.files));
       }
+
       if (response.error) {
         setError(response.error);
       }
@@ -39,8 +42,33 @@ function Files() {
     }
   };
 
+  const getFilesPagination = async (filter) => {
+    pagination = pagination + 1;
+    const url = `/api/v1/user/get-files/q/${filter ?? "ALL"}/p/${pagination}`;
+    try {
+      setError(null);
+      setLoadingMore(true);
+      const data = await fetch(url);
+      const response = await data.json();
+      if (response.success) {
+        const PaginationDataMerge = files.concat(...response?.files);
+
+        dispatch(updateFiles(PaginationDataMerge));
+      }
+      if (!response.success) {
+        setViewMore(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+      ToastError("Can't get files right now");
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
   useEffect(() => {
     getFiles(filter);
+    setViewMore(true);
   }, [refetch, filter]);
 
   return (
@@ -49,7 +77,7 @@ function Files() {
       <div className='p-5 w-full h-full'>
         {loading ? (
           <LoadingUi />
-        ) : error ? (
+        ) : files.length === 0 ? (
           filter.toUpperCase() == "ALL" ? (
             <UploadController />
           ) : (
@@ -70,14 +98,14 @@ function Files() {
               return <SingleFile key={file.id} file={file} />;
             })}
             <div className='h-5'></div>
-            <LoadingButton
-              loading={loading}
-              text={"Load More"}
-              customclass={"absolute bottom-0 left-[45%] max-w-[200px] mb-5"}
-              onClick={() => {
-                console.log("LoadMore");
-              }}
-            />
+            {viewMore && (
+              <LoadingButton
+                loading={loadingMore}
+                text={"Load More"}
+                customclass={"absolute bottom-0 left-[45%] max-w-[200px] mb-5"}
+                onClick={() => getFilesPagination(filter)}
+              />
+            )}
           </div>
         )}
       </div>
