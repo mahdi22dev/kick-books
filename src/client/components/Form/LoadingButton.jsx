@@ -9,7 +9,7 @@ function LoadingButton({ loading, text, ...props }) {
       disabled={loading}
       {...props}
     >
-      {loading ? <SyncLoader color='#fff' size={8} /> : text}
+      {loading ? <SyncLoader color='#fff' size={6} /> : text}
     </button>
   );
 }

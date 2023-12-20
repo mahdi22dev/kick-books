@@ -16,6 +16,7 @@ function Files() {
 
   const getFiles = async (filter) => {
     dispatch(updateFiles([]));
+
     const url = `/api/v1/user/get-files/q/${filter ?? "ALL"}`;
     try {
       setError(null);

@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     viewPDF: false,
     viewUpload: false,
     refetch: false,
+    refetchCategories: false,
     DeleteCategorie: false,
     ConfirmDelete: false,
   },
@@ -22,6 +23,9 @@ export const userSlice = createSlice({
     },
     refetchToggle: (state) => {
       state.refetch = !state.refetch;
+    },
+    CategorierefetchToggle: (state) => {
+      state.refetchCategories = !state.refetchCategories;
     },
     ToggleDelete: (state) => {
       state.DeleteCategorie = !state.DeleteCategorie;
@@ -43,6 +47,7 @@ export const {
   ToggleDelete,
   ToggleConfirmDelete,
   CloseConfirmDelete,
+  CategorierefetchToggle,
 } = userSlice.actions;
 
 export default userSlice.reducer;

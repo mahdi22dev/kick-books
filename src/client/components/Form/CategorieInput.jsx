@@ -4,11 +4,13 @@ import { useForm } from "react-hook-form";
 import { CetegorieSchema } from "../../lib/vidationSchema";
 import { ToastError, ToastMessage } from "../../lib/toast";
 import CategorieTextInput from "./CategorieTextInput";
+import { CategorierefetchToggle } from "../../lib/redux/User/userSlice";
+import { useDispatch } from "react-redux";
 
 function CategorieInput() {
   const [loading, setLoading] = useState(false);
   const [add, setAdd] = useState(false);
-
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     control,
@@ -28,9 +30,14 @@ function CategorieInput() {
       const response = await data.json();
       if (response?.success) {
         ToastMessage("Categorie Added Successfly");
+        dispatch(CategorierefetchToggle());
+      }
+      if (!response?.success) {
+        ToastError("Error accur when trying to add the categorie");
       }
     } catch (error) {
-      ToastError("there was an error please try again later");
+      console.log(error.message);
+      ToastError("there was an error please try again later herr1");
     } finally {
       setAdd(false);
       setLoading(false);

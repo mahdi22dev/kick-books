@@ -28,6 +28,8 @@ export const EditUsername = (req, res) => {
 export const userUpload = async (req, res) => {
   try {
     const file = req?.file;
+    const categorie = req?.body?.categorie;
+    console.log(categorie);
     const user = req?.user;
 
     if (isPDF(file.originalname)) {
@@ -38,7 +40,7 @@ export const userUpload = async (req, res) => {
         data: {
           fileName: encodedFileName,
           content: contentPDF,
-          category: "ALL",
+          category: categorie ?? "art",
           UserId: user?.id,
           thumbnail: contentPDF,
         },
@@ -66,7 +68,7 @@ export const userUpload = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(401).json({
+    res.status(400).json({
       success: false,
       message: "There's an Error Please try Again Later",
     });
@@ -99,7 +101,7 @@ export const getFiles = async (req, res) => {
         },
         where: {
           UserId: UserId,
-          category: filter.toUpperCase(),
+          category: filter,
         },
       });
     }
@@ -188,6 +190,7 @@ export const DeleteFileAfterDW = async (req, res) => {
   }
 };
 
+// categories endpoints
 export const addCategorie = async (req, res) => {
   const categorie = req?.body;
   const user = req?.user;
@@ -231,8 +234,9 @@ export const getCategories = async (req, res) => {
 };
 export const deletCategorie = async (req, res) => {
   const categorie = req?.params?.id;
+
   try {
-    await prisma.user.delete({
+    await prisma.catogories.delete({
       where: {
         id: categorie,
       },
@@ -241,6 +245,7 @@ export const deletCategorie = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({
       success: false,
     });

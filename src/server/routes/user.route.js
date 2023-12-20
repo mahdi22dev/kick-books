@@ -37,5 +37,5 @@ userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
 userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
-userRoute.get("/categorie/delete/:id", deletCategorie);
+userRoute.get("/categorie/d/:id", deletCategorie);
 export default userRoute;

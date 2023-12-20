@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CloseConfirmDelete } from "../lib/redux/User/userSlice";
 import LoadingButton from "./Form/LoadingButton";
 import CancelButton from "./CancelButton";
+import {
+  CategorierefetchToggle,
+  CloseConfirmDelete,
+} from "../lib/redux/User/userSlice";
+import { ToastError, ToastMessage } from "../lib/toast";
 
 function ConfirmDelete() {
   const { ConfirmDelete } = useSelector((state) => state.user);
@@ -11,10 +15,20 @@ function ConfirmDelete() {
   const dispatch = useDispatch();
 
   const handledelete = async () => {
-    setLoading(true);
     try {
-      console.log(categorieObj);
+      setLoading(true);
+      const data = await fetch("/api/v1/user/categorie/d/" + categorieObj.id);
+      const response = await data.json();
+      if (response?.success) {
+        dispatch(CloseConfirmDelete());
+        dispatch(CategorierefetchToggle());
+        ToastMessage("Categorie Deleted Successfly");
+      }
+      if (!response?.success) {
+        ToastError("Error accur when trying to delete the categorie");
+      }
     } catch (error) {
+      ToastError("there was an error please try again later");
     } finally {
       setLoading(false);
     }
@@ -32,7 +46,7 @@ function ConfirmDelete() {
               text={"Delete"}
               onClick={() => handledelete()}
             />
-            <CancelButton />
+            <CancelButton loading={loading} />
           </div>
         </div>
       </div>

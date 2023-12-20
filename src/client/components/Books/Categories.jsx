@@ -15,7 +15,9 @@ import {
 } from "../../lib/redux/User/userSlice";
 function Categories({}) {
   const [loading, setLoading] = useState(false);
-  const { DeleteCategorie } = useSelector((state) => state.user);
+  const { DeleteCategorie, refetchCategories } = useSelector(
+    (state) => state.user
+  );
   const { filter, categories } = useSelector((state) => state.files);
   const dispatch = useDispatch();
 
@@ -39,7 +41,8 @@ function Categories({}) {
   };
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [refetchCategories]);
+
   return (
     <div className='bg-secondary w-full p-3 min-h-[60px]'>
       {loading ? (
