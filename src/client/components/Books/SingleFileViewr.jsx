@@ -44,6 +44,7 @@ function SingleFileViewr() {
   const onNavigate = (page) => {
     localStorage.setItem(`${fileName}_${fileId}_page`, page.currentPage);
   };
+  const onZoom = (z) => {};
 
   return loading ? (
     <LoadingUi />
@@ -55,6 +56,8 @@ function SingleFileViewr() {
           console.log(error);
           ToastError(error.message);
         }}
+        onZoom={onZoom}
+        defaultScale={2}
         plugins={[plugin]}
         initialPage={localStorage.getItem(`${fileName}_${fileId}_page`) || 0}
         onPageChange={onNavigate}
