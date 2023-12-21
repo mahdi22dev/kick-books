@@ -45,9 +45,7 @@ export const userUpload = async (req, res) => {
         outputDirectory
       );
 
-      console.log(thumb);
       const thumbBuffer = fs.readFileSync(thumb);
-      console.log("buffer", thumbBuffer);
 
       await prisma.files.create({
         data: {
@@ -109,6 +107,7 @@ export const getFiles = async (req, res) => {
           fileName: true,
           id: true,
           category: true,
+          thumbnail: true,
         },
         where: {
           UserId: UserId,
@@ -122,6 +121,7 @@ export const getFiles = async (req, res) => {
           fileName: true,
           id: true,
           category: true,
+          thumbnail: true,
         },
         where: {
           UserId: UserId,

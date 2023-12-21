@@ -20,7 +20,6 @@ export async function getPdfThumbnail(url, outputFileName, outputDirectory) {
     await fs.mkdir(outputDirectory, { recursive: true });
     // Specify the desired output path and filename
     const outputPath = path.join(outputDirectory, outputFileName + ".png");
-    console.log(outputPath);
     // Use fs.promises.copyFile to copy the thumbnail to the desired location
     await fs.copyFile(thumbnailPath, outputPath);
     // Delete the original thumbnail file

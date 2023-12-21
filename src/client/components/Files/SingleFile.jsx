@@ -6,7 +6,6 @@ import {
   ToggleFileConfirmDelete,
   toggleviewPDF,
 } from "../../lib/redux/User/userSlice";
-import { FaFolder } from "react-icons/fa";
 import {
   UpdateSingleFile,
   updateFileId,
@@ -15,15 +14,29 @@ import { MdDelete } from "react-icons/md";
 import img from "../../assets/img.jpg";
 import { isUserUsingMobile } from "../../lib/utils";
 import ViewFileToggle from "./ViewFileToggle";
+import Image from "../Image";
 
 function SingleFile({ file }) {
+  console.log(file);
   const [isMobile, setIsMobile] = useState(false);
   const [scaleAnimation, setScaleAnimation] = useState(false);
   const dispatch = useDispatch();
-
+  const [imageSrc, setImageSrc] = useState(null);
   useEffect(() => {
     setIsMobile(isUserUsingMobile());
     setScaleAnimation(isUserUsingMobile());
+  }, []);
+
+  useEffect(() => {
+    const blob = new Blob([new Uint8Array(file.thumbnail.data)], {
+      type: "image/png",
+    });
+
+    // Create a data URL from the Blob
+    const dataUrl = URL.createObjectURL(blob);
+
+    // Set the data URL as the source for the image
+    setImageSrc(dataUrl);
   }, []);
 
   const handleViewrToggle = (id) => {
@@ -52,7 +65,9 @@ function SingleFile({ file }) {
       <div className='p-1 text-center '>
         <p>{decodedFileName}</p>
       </div>
-      <img src={img} alt='img' className='w-full h-full' />
+
+      <Image imgSrc={imageSrc} />
+
       <ViewFileToggle
         scaleAnimation={scaleAnimation}
         file={file}

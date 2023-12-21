@@ -14,7 +14,7 @@ function Files() {
   const { files, filter } = useSelector((state) => state.files);
   const { refetch } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
-  const [viewMore, setViewMore] = useState(true);
+  const [viewMore, setViewMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -30,10 +30,14 @@ function Files() {
       if (response.success) {
         console.log(response);
         dispatch(updateFiles(response?.files));
+        if (response?.files?.length < 6) {
+          setViewMore(false);
+        }
       }
 
-      if (response.error) {
+      if (!response.success) {
         setError(response.error);
+        setViewMore(false);
       }
     } catch (error) {
       ToastError("Can't get files right now");
@@ -52,10 +56,9 @@ function Files() {
       const response = await data.json();
       if (response.success) {
         const PaginationDataMerge = files.concat(...response?.files);
-
         dispatch(updateFiles(PaginationDataMerge));
       }
-      if (!response.success) {
+      if (!response.success || response?.files?.length === 0) {
         setViewMore(false);
       }
     } catch (error) {
