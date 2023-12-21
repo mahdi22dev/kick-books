@@ -18,7 +18,7 @@ function SingleFileViewr() {
   const [loading, setLoading] = useState(false);
 
   const fetchFileContent = async () => {
-    const url = "http://localhost:3000/api/v1/user/get-file/" + fileId;
+    const url = "/api/v1/user/get-file/" + fileId;
     try {
       setLoading(true);
       const data = await fetch(url);
