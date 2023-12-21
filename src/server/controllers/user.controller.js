@@ -1,6 +1,6 @@
 import { prisma } from "../../client/lib/prismaClient.js";
 import fs from "fs";
-import { isPDF } from "../lib/utils.js";
+import { getPdfThumbnail, isPDF } from "../lib/utils.js";
 
 export const EditUsername = (req, res) => {
   try {
@@ -28,13 +28,26 @@ export const EditUsername = (req, res) => {
 export const userUpload = async (req, res) => {
   try {
     const file = req?.file;
+    console.log("file", file);
     const categorie = req?.body?.categorie;
-    console.log(categorie);
     const user = req?.user;
 
     if (isPDF(file.originalname)) {
       const contentPDF = fs.readFileSync(file.path);
       const encodedFileName = encodeURIComponent(file.originalname);
+
+      // Delete the file from the server
+      const outputDirectory = "files/images";
+      const outputFileName = file.filename.replace(/\.[^/.]+$/, "");
+      const thumb = await getPdfThumbnail(
+        file.path,
+        outputFileName,
+        outputDirectory
+      );
+
+      console.log(thumb);
+      const thumbBuffer = fs.readFileSync(thumb);
+      console.log("buffer", thumbBuffer);
 
       await prisma.files.create({
         data: {
@@ -42,11 +55,17 @@ export const userUpload = async (req, res) => {
           content: contentPDF,
           category: categorie ?? "art",
           UserId: user?.id,
-          thumbnail: contentPDF,
+          thumbnail: thumbBuffer,
         },
       });
 
-      // Delete the file from the server
+      fs.unlink(thumb, (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log("thumbnail deleted");
+        }
+      });
       fs.unlink(file.path, (err) => {
         if (err) {
           console.error(err);

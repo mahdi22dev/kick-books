@@ -60,6 +60,7 @@ function UploadContainer() {
       console.log(categorie);
       formData.append("file", PDF);
       formData.append("categorie", categorie);
+      console.log(formData);
 
       const data = await fetch("/api/v1/user/upload", {
         method: "POST",
