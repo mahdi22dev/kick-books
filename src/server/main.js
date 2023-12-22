@@ -14,7 +14,6 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors());
 // api middlware
 app.use("/user", JWTCheck, userRoute);
 app.use("/api/v1/user", JWTCheck, userRoute);
