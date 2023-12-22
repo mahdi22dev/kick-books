@@ -25,8 +25,9 @@ app.use("/api/v1/auth", authRoute);
 // auth pages middlware
 app.use("/sign-up", JWTTokenAuthPages);
 app.use("/sign-in", JWTTokenAuthPages);
-app.get("/", JWTTokenAuthPages);
-
+app.get("/", JWTTokenAuthPages, (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
