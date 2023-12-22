@@ -9,7 +9,8 @@ import path from "path";
 import cors from "cors";
 
 const app = express();
-app.use(ViteExpress.static());
+ViteExpress.config({ mode: "production" });
+
 app.use(cors());
 app.use((req, res, next) => {
   res.header("Content-Type", "text/html; charset=utf-8");
