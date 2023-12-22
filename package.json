@@ -4,8 +4,8 @@
   "type": "module",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npx prisma generate && nodemon src/server/main.js -w src/server",
-    "start": "node src/server/main.js",
+    "dev": "npx prisma generate && nodemon api/index.js -w api/",
+    "start": "node api/index.js",
     "build": "vite build"
   },
   "dependencies": {
