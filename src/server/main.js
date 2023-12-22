@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use(bodyParser.json());
-
+// api
 app.use("/user", JWTCheck, userRoute);
 app.use("/api/v1/user", JWTCheck, userRoute);
 app.use("/files", JWTCheck, userRoute);
