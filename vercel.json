@@ -1,1 +1,4 @@
-{ "routes": [{ "src": "/.*", "dest": "/src/server/main.js" }] }
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "routes": [{ "src": "/.*", "dest": "/src/server/main.js" }]
+}
