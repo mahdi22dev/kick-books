@@ -7,7 +7,7 @@ import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
 import cors from "cors";
 
-export const app = express();
+const app = express();
 
 app.use(cors());
 app.use((req, res, next) => {
@@ -31,3 +31,5 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
+
+export default app;
