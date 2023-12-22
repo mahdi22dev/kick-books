@@ -44,4 +44,7 @@ userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
 userRoute.get("/categorie/d/:id", deletCategorie);
 
+userRoute.post("/categorie/add", addCategorie);
+userRoute.get("/categorie/get", getCategories);
+userRoute.get("/categorie/d/:id", deletCategorie);
 export default userRoute;
