@@ -5,6 +5,7 @@ import userRoute from "./routes/user.route.js";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
+import path from "path";
 import cors from "cors";
 
 const app = express();
@@ -25,9 +26,6 @@ app.use("/api/v1/auth", authRoute);
 // auth pages middlware
 app.use("/sign-up", JWTTokenAuthPages);
 app.use("/sign-in", JWTTokenAuthPages);
-app.get("/", JWTTokenAuthPages, (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
