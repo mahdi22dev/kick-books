@@ -6,7 +6,9 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route.js";
 import { JWTCheck, JWTTokenAuthPages } from "./lib/authMiddleware/JwtToken.js";
 import cors from "cors";
+
 const app = express();
+app.use(ViteExpress.static());
 app.use(cors());
 app.use((req, res, next) => {
   res.header("Content-Type", "text/html; charset=utf-8");
