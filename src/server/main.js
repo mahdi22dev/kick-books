@@ -27,14 +27,13 @@ app.use("/api/v1/auth", authRoute);
 // auth pages middlware
 app.use("/sign-up", JWTTokenAuthPages);
 app.use("/sign-in", JWTTokenAuthPages);
+app.get("/", JWTTokenAuthPages);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
 const PORT = process.env.PORT || 3000;
-
-// app.listen(5000, console.log("Server is listening on port 5000..."));
 
 ViteExpress.listen(app, PORT, () =>
   console.log("Server is listening on port 3000...")
