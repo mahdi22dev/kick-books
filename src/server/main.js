@@ -32,4 +32,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-export default app;
+const PORT = process.env.PORT || 3000;
+
+ViteExpress.listen(app, PORT, () =>
+  console.log("Server is listening on port 3000...")
+);
