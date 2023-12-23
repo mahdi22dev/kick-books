@@ -23,6 +23,7 @@ app.use("/files", JWTCheck, userRoute);
 app.use("/api/v1/auth", authRoute);
 
 // auth pages middlware
+// fe
 app.use("/sign-up", JWTTokenAuthPages);
 app.use("/sign-in", JWTTokenAuthPages);
 app.get("/", JWTTokenAuthPages);
