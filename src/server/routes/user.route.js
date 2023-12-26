@@ -39,7 +39,6 @@ userRoute.get("/get-files/q/:filter/p/:page", getFiles);
 userRoute.get("/get-file/:id", getSingleFile);
 userRoute.get("/d/:id", DeleteFileAfterDW);
 userRoute.get("/file/d/:id", DeeleteFile);
-userRoute.get("/file/d/:id", DeeleteFile);
 // categories
 userRoute.post("/categorie/add", addCategorie);
 userRoute.get("/categorie/get", getCategories);
