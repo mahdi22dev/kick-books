@@ -1,0 +1,21 @@
+services:
+  - type: web
+    buildCommand: |
+      npm install
+      npm run build
+    startCommand: npm start
+    env:
+      - key: NODE_ENV
+        value: production
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: MY_SECRET
+        value: 'dqwerqr543refwiejrfuwioruwqeruwerwefjwnfewefwfef'
+      - key: DATABASE_URL
+        value: mongodb+srv://idrissimahdi2020:mahdi2019@cluster0.6uhvums.mongodb.net/dashboard?retryWrites=true&w=majority
+    healthCheckPath: /
+    github:
+      branch: kick-branch-2
+      deployOnPush: true
+    // additional configuration...
