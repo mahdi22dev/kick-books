@@ -11,7 +11,7 @@ app.use((req, res, next) => {
   res.header("Content-Type", "text/html; charset=utf-8");
   next();
 });
-ViteExpress.config({ mode: "development" })
+ViteExpress.config({ mode: "production" })
 
 app.use(cookieParser());
 app.use(bodyParser.json());
