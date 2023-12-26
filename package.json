@@ -1,10 +1,10 @@
 {
-  "name": "kick books",
+  "name": "kickbooks",
   "private": true,
   "type": "module",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npx prisma generate && nodemon src/server/main.js -w src/server",
+    "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "vite build"
   },
