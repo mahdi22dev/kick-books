@@ -19,26 +19,6 @@ app.use("/api/v1/user", JWTCheck, userRoute);
 app.use("/files", JWTCheck, userRoute);
 app.use("/api/v1/auth", authRoute);
 
-// app.get("/api/image/:id", async (req, res) => {
-//   const imageId = parseInt(req.params.id, 10);
-
-//   try {
-
-//     if (!image) {
-//       return res.status(404).json({ error: "Image not found" });
-//     }
-
-//     // Convert the buffer to a Blob and send it to the client
-//     const blob = new Blob([image.data], { type: "image/jpeg" });
-//     res.setHeader("Content-Type", "image/jpeg");
-//     res.status(200).send(blob);
-//   } catch (error) {
-//     console.error("Error retrieving image from Prisma:", error.message);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   } finally {
-//     await prisma.$disconnect();
-//   }
-// });
 
 // auth pages middlware
 app.use("/sign-up", JWTTokenAuthPages);
